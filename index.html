@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Masferrer & Partners - Outsourcing contable, financiero, tributario y laboral para empresas que buscan eficiencia y cumplimiento normativo.">
+    <meta name="keywords"
+        content="outsourcing contable, outsourcing financiero, outsourcing tributario, outsourcing laboral, consultoría empresarial Chile">
+    <title>Masferrer & Partners - Outsourcing Integral para tu Empresa</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="hero-services.css">
+
+    <!-- GSAP Animation Library -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+</head>
+
+<body>
+
+    <!-- ============================================================
+         HEADER
+    ============================================================ -->
+    <header class="header" id="header">
+        <div class="container header__container">
+            <a href="index.html" class="header__logo-link" aria-label="Masferrer & Partners - Inicio">
+                <img src="Logotipo/Logo Masferrer & Partners - Horizontal SS.svg" alt="Masferrer & Partners"
+                    class="header__logo">
+            </a>
+
+            <nav class="header__nav" id="nav" aria-label="Navegación principal">
+                <ul class="nav__list">
+                    <li><a href="index.html" class="nav__link nav__link--active">Inicio</a></li>
+                    <li><a href="servicios.html" class="nav__link">Servicios</a></li>
+                    <li><a href="nosotros.html" class="nav__link">Nosotros</a></li>
+                    <li><a href="contacto.html" class="nav__link">Contacto</a></li>
+                    <li>
+                        <a href="contacto.html#agendar" class="nav__cta">
+                            <i data-lucide="calendar"></i>
+                            <span>Agenda una Reunión</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <button class="nav__toggle" id="navToggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+                <span class="nav__toggle-icon"></span>
+            </button>
+        </div>
+    </header>
+
+
+    <!-- ============================================================
+         HERO SECTION
+    ============================================================ -->
+    <section class="hero" aria-label="Presentación principal">
+        <!-- Geometric background pattern -->
+        <div class="hero__bg" aria-hidden="true">
+            <div class="hero__bg-grid"></div>
+            <div class="hero__bg-orb hero__bg-orb--1"></div>
+            <div class="hero__bg-orb hero__bg-orb--2"></div>
+        </div>
+
+        <div class="container">
+            <div class="hero__grid">
+
+                <!-- Left: Value Proposition -->
+                <div class="hero__content">
+                    <div class="hero__badge">
+                        <i data-lucide="shield-check"></i>
+                        <span>+15 Años de Experiencia</span>
+                    </div>
+
+                    <h1 class="hero__title">
+                        Outsourcing Profesional
+                        <span class="hero__title-accent">para Empresas que Buscan Excelencia</span>
+                    </h1>
+
+                    <p class="hero__subtitle">Gestión contable, financiera, tributaria y laboral respaldada por
+                        expertos certificados. Libere recursos estratégicos y enfoque su equipo en el crecimiento
+                        del negocio.</p>
+
+                    <div class="hero__cta-group">
+                        <a href="contacto.html#agendar" class="btn-hero btn-hero--primary">
+                            <i data-lucide="calendar"></i>
+                            <span>Agendar Reunión</span>
+                        </a>
+                        <a href="#servicios" class="btn-hero btn-hero--ghost">
+                            <span>Ver Servicios</span>
+                            <i data-lucide="arrow-right"></i>
+                        </a>
+                    </div>
+
+                    <div class="hero__metrics">
+                        <div class="hero-metric">
+                            <strong class="hero-metric__number">150<span>+</span></strong>
+                            <span class="hero-metric__label">Empresas Confían en Nosotros</span>
+                        </div>
+                        <div class="hero-metric__divider" aria-hidden="true"></div>
+                        <div class="hero-metric">
+                            <strong class="hero-metric__number">40<span>%</span></strong>
+                            <span class="hero-metric__label">Reducción Promedio de Costos</span>
+                        </div>
+                        <div class="hero-metric__divider" aria-hidden="true"></div>
+                        <div class="hero-metric">
+                            <strong class="hero-metric__number">15<span>+</span></strong>
+                            <span class="hero-metric__label">Años de Experiencia</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Service Cards -->
+                <div class="hero__services" aria-label="Nuestros servicios">
+                    <a href="servicio-contable.html" class="hero-service-card">
+                        <div class="hero-service-card__icon">
+                            <i data-lucide="calculator"></i>
+                        </div>
+                        <div class="hero-service-card__body">
+                            <h3>Outsourcing Contable</h3>
+                            <p>Registros precisos y estados financieros confiables</p>
+                        </div>
+                        <i data-lucide="arrow-right" class="hero-service-card__arrow"></i>
+                    </a>
+
+                    <a href="servicio-financiero.html" class="hero-service-card">
+                        <div class="hero-service-card__icon">
+                            <i data-lucide="trending-up"></i>
+                        </div>
+                        <div class="hero-service-card__body">
+                            <h3>Outsourcing Financiero</h3>
+                            <p>Análisis estratégico para decisiones informadas</p>
+                        </div>
+                        <i data-lucide="arrow-right" class="hero-service-card__arrow"></i>
+                    </a>
+
+                    <a href="servicio-tributario.html" class="hero-service-card">
+                        <div class="hero-service-card__icon">
+                            <i data-lucide="file-text"></i>
+                        </div>
+                        <div class="hero-service-card__body">
+                            <h3>Outsourcing Tributario</h3>
+                            <p>Cumplimiento fiscal y planificación tributaria</p>
+                        </div>
+                        <i data-lucide="arrow-right" class="hero-service-card__arrow"></i>
+                    </a>
+
+                    <a href="servicio-laboral.html" class="hero-service-card">
+                        <div class="hero-service-card__icon">
+                            <i data-lucide="users"></i>
+                        </div>
+                        <div class="hero-service-card__body">
+                            <h3>Outsourcing Laboral</h3>
+                            <p>Administración de nómina y cumplimiento legal</p>
+                        </div>
+                        <i data-lucide="arrow-right" class="hero-service-card__arrow"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================================
+         BENEFITS SECTION
+    ============================================================ -->
+    <section class="section section--benefits" id="beneficios">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Por qué elegirnos</span>
+                <h2 class="section-title">¿Por Qué Elegir Outsourcing<br>con Masferrer & Partners?</h2>
+                <p class="section-subtitle">Más de 150 empresas ya confían en nosotros para gestionar sus procesos administrativos con eficiencia, seguridad y resultados medibles.</p>
+            </div>
+
+            <div class="benefits-grid">
+                <!-- Benefit 1 -->
+                <div class="benefit-card">
+                    <div class="benefit-card__icon-wrap">
+                        <div class="benefit-card__icon">
+                            <i data-lucide="circle-dollar-sign"></i>
+                        </div>
+                    </div>
+                    <h3 class="benefit-card__title">Reducción de Costos</h3>
+                    <p class="benefit-card__text">Ahorra hasta un 40% en gastos operativos comparado con mantener un
+                        equipo interno completo.</p>
+                </div>
+
+                <!-- Benefit 2 -->
+                <div class="benefit-card">
+                    <div class="benefit-card__icon-wrap">
+                        <div class="benefit-card__icon">
+                            <i data-lucide="scale"></i>
+                        </div>
+                    </div>
+                    <h3 class="benefit-card__title">Cumplimiento Normativo</h3>
+                    <p class="benefit-card__text">Garantizamos el cumplimiento de todas las obligaciones tributarias,
+                        laborales y contables vigentes.</p>
+                </div>
+
+                <!-- Benefit 3 -->
+                <div class="benefit-card">
+                    <div class="benefit-card__icon-wrap">
+                        <div class="benefit-card__icon">
+                            <i data-lucide="shield"></i>
+                        </div>
+                    </div>
+                    <h3 class="benefit-card__title">Reducción de Riesgos</h3>
+                    <p class="benefit-card__text">Minimiza errores y contingencias con nuestros procesos certificados y
+                        tecnología de punta.</p>
+                </div>
+
+                <!-- Benefit 4 -->
+                <div class="benefit-card">
+                    <div class="benefit-card__icon-wrap">
+                        <div class="benefit-card__icon">
+                            <i data-lucide="line-chart"></i>
+                        </div>
+                    </div>
+                    <h3 class="benefit-card__title">Reportes en Tiempo Real</h3>
+                    <p class="benefit-card__text">Accede a información financiera actualizada para tomar mejores
+                        decisiones de negocio.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================================
+         SERVICES SECTION
+    ============================================================ -->
+    <section class="section section--services section--alt" id="servicios">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Nuestros Servicios</span>
+                <h2 class="section-title">Outsourcing Integral<br>para tu Empresa</h2>
+                <p class="section-subtitle">Servicios integrales diseñados para liberar tu tiempo y optimizar tus
+                    recursos. Trabajamos como una extensión de tu equipo.</p>
+            </div>
+
+            <div class="services-grid">
+
+                <!-- Service 1: Contable -->
+                <article class="service-card ">
+                    <div class="service-card__header">
+                        <div class="service-card__icon-wrap service-card__icon-wrap--contable">
+                            <i data-lucide="calculator"></i>
+                        </div>
+                        <span class="service-card__badge">Popular</span>
+                    </div>
+                    <h3 class="service-card__title">Outsourcing Contable</h3>
+                    <p class="service-card__desc">Gestión completa de tu contabilidad: registro de operaciones,
+                        conciliaciones bancarias, estados financieros, y más.</p>
+                    <ul class="service-card__list" aria-label="Incluye">
+                        <li>
+                            <span class="service-card__check" aria-hidden="true"></span>
+                            Contabilidad general
+                        </li>
+                        <li>
+                            <span class="service-card__check" aria-hidden="true"></span>
+                            Estados financieros mensuales
+                        </li>
+                        <li>
+                            <span class="service-card__check" aria-hidden="true"></span>
+                            Conciliaciones bancarias
+                        </li>
+                        <li>
+                            <span class="service-card__check" aria-hidden="true"></span>
+                            Control de activos fijos
+                        </li>
+                    </ul>
+                    <a href="servicios.html#contable" class="service-card__cta">
+                        Ver detalles
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+                </article>
+
+                <!-- Service 2: Financiero -->
+                <article class="service-card ">
+                    <div class="service-card__header">
+                        <div class="service-card__icon-wrap service-card__icon-wrap--financiero">
+                            <i data-lucide="trending-up"></i>
+                        </div>
+                    </div>
+                    <h3 class="service-card__title">Outsourcing Financiero</h3>
+                    <p class="service-card__desc">Análisis y planificación financiera para mejorar la rentabilidad y el
+                        flujo de caja de tu empresa.</p>
+                    <ul class="service-card__list" aria-label="Incluye">
+                        <li>
+                            <span class="service-card__check" aria-hidden="true"></span>
+                            Análisis financiero
+                        </li>
+                        <li>
+                            <span class="service-card__check" aria-hidden="true"></span>
+                            Proyecciones y presupuestos
+                        </li>
+                        <li>
+                            <span class="service-card__check" aria-hidden="true"></span>
+                            Control de gestión
+                        </li>
+                        <li>
+                            <span class="service-card__check" aria-hidden="true"></span>
+                            Reporting ejecutivo
+                        </li>
+                    </ul>
+                    <a href="servicios.html#financiero" class="service-card__cta">
+                        Ver detalles
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+                </article>
+
+                <!-- Service 3: Tributario -->
+                <article class="service-card ">
+                    <div class="service-card__header">
+                        <div class="service-card__icon-wrap service-card__icon-wrap--tributario">
+                            <i data-lucide="file-text"></i>
+                        </div>
+                    </div>
+                    <h3 class="service-card__title">Outsourcing Tributario</h3>
+                    <p class="service-card__desc">Cumplimiento tributario total y planificación fiscal para optimizar la
+                        carga impositiva de tu negocio.</p>
+                    <ul class="service-card__list" aria-label="Incluye">
+                        <li>
+                            <span class="service-card__check" aria-hidden="true"></span>
+                            Declaraciones mensuales (IVA, Retenciones)
+                        </li>
+                        <li>
+                            <span class="service-card__check" aria-hidden="true"></span>
+                            Impuesto a la renta anual
+                        </li>
+                        <li>
+                            <span class="service-card__check" aria-hidden="true"></span>
+                            Planificación tributaria
+                        </li>
+                        <li>
+                            <span class="service-card__check" aria-hidden="true"></span>
+                            Asesoría en fiscalizaciones
+                        </li>
+                    </ul>
+                    <a href="servicios.html#tributario" class="service-card__cta">
+                        Ver detalles
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+                </article>
+
+                <!-- Service 4: Laboral -->
+                <article class="service-card ">
+                    <div class="service-card__header">
+                        <div class="service-card__icon-wrap service-card__icon-wrap--laboral">
+                            <i data-lucide="users"></i>
+                        </div>
+                    </div>
+                    <h3 class="service-card__title">Outsourcing Laboral</h3>
+                    <p class="service-card__desc">Administración integral de remuneraciones y cumplimiento de
+                        obligaciones laborales y previsionales.</p>
+                    <ul class="service-card__list" aria-label="Incluye">
+                        <li>
+                            <span class="service-card__check" aria-hidden="true"></span>
+                            Liquidación de sueldos
+                        </li>
+                        <li>
+                            <span class="service-card__check" aria-hidden="true"></span>
+                            Declaraciones previsionales
+                        </li>
+                        <li>
+                            <span class="service-card__check" aria-hidden="true"></span>
+                            Contratos y finiquitos
+                        </li>
+                        <li>
+                            <span class="service-card__check" aria-hidden="true"></span>
+                            Asesoría laboral continua
+                        </li>
+                    </ul>
+                    <a href="servicios.html#laboral" class="service-card__cta">
+                        Ver detalles
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================================
+         CLIENT SECTORS SECTION
+    ============================================================ -->
+    <section class="section section--sectors" id="sectores">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">A quién servimos</span>
+                <h2 class="section-title">¿Para Quién Trabajamos?</h2>
+                <p class="section-subtitle">Adaptamos nuestros servicios a las necesidades específicas de cada tipo de
+                    empresa.</p>
+            </div>
+
+            <div class="sectors-grid">
+
+                <div class="sector-card">
+                    <div class="sector-card__number" aria-hidden="true">01</div>
+                    <div class="sector-card__icon">
+                        <i data-lucide="rocket"></i>
+                    </div>
+                    <h3 class="sector-card__title">Startups</h3>
+                    <p class="sector-card__text">Soluciones ágiles y escalables para empresas en crecimiento acelerado.
+                        Configuración inicial de procesos contables y financieros.</p>
+                    <a href="contacto.html" class="sector-card__link">
+                        Conversemos
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="sector-card">
+                    <div class="sector-card__number" aria-hidden="true">02</div>
+                    <div class="sector-card__icon">
+                        <i data-lucide="landmark"></i>
+                    </div>
+                    <h3 class="sector-card__title">PYMEs</h3>
+                    <p class="sector-card__text">Servicios integrales para pequeñas y medianas empresas que buscan
+                        profesionalizar su gestión sin aumentar costos.</p>
+                    <a href="contacto.html" class="sector-card__link">
+                        Conversemos
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="sector-card">
+                    <div class="sector-card__number" aria-hidden="true">03</div>
+                    <div class="sector-card__icon">
+                        <i data-lucide="building"></i>
+                    </div>
+                    <h3 class="sector-card__title">Empresas Medianas</h3>
+                    <p class="sector-card__text">Soporte especializado para empresas establecidas que requieren
+                        expertise específico y reportería ejecutiva avanzada.</p>
+                    <a href="contacto.html" class="sector-card__link">
+                        Conversemos
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================================
+         CTA SECTION
+    ============================================================ -->
+    <section class="section section--cta" id="contacto-rapido">
+        <div class="cta-bg" aria-hidden="true">
+            <div class="cta-bg__pattern"></div>
+        </div>
+        <div class="container">
+            <div class="cta-inner">
+                <div class="cta-content">
+                    <span class="section-label section-label--light">Hablemos</span>
+                    <h2 class="cta-title">¿Listo para Optimizar tu<br>Gestión Administrativa?</h2>
+                    <p class="cta-subtitle">Agenda una reunión sin compromiso y descubre cómo podemos ayudarte a
+                        reducir costos y mejorar la eficiencia de tu empresa.</p>
+
+                    <div class="cta-actions">
+                        <a href="contacto.html#agendar" class="btn-cta btn-cta--primary">
+                            <i data-lucide="calendar"></i>
+                            Agenda una Reunión
+                        </a>
+                        <a href="tel:+56912345678" class="btn-cta btn-cta--outline">
+                            <i data-lucide="phone"></i>
+                            +56 9 1234 5678
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Contact Form -->
+                <div class="cta-form-wrap">
+                    <div class="cta-form-card">
+                        <h3 class="cta-form-card__title">O Déjanos tus Datos</h3>
+                        <p class="cta-form-card__subtitle">Te contactaremos en menos de 24 horas.</p>
+                        <form id="quickContactForm" novalidate>
+                            <div class="form-group">
+                                <label class="form-label" for="qc-name">Nombre completo</label>
+                                <input type="text" id="qc-name" name="name" class="form-input"
+                                    placeholder="Juan González" required autocomplete="name">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="qc-email">Email corporativo</label>
+                                <input type="email" id="qc-email" name="email" class="form-input"
+                                    placeholder="juan@empresa.cl" required autocomplete="email">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="qc-phone">Teléfono</label>
+                                <input type="tel" id="qc-phone" name="phone" class="form-input"
+                                    placeholder="+56 9 0000 0000" required autocomplete="tel">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="qc-service">Servicio de interés</label>
+                                <select id="qc-service" name="service" class="form-select" required>
+                                    <option value="">Selecciona un servicio</option>
+                                    <option value="contable">Outsourcing Contable</option>
+                                    <option value="financiero">Outsourcing Financiero</option>
+                                    <option value="tributario">Outsourcing Tributario</option>
+                                    <option value="laboral">Outsourcing Laboral</option>
+                                    <option value="integral">Solución Integral</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn-submit">
+                                <i data-lucide="send"></i>
+                                Enviar Consulta
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================================
+         FOOTER
+    ============================================================ -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer__grid">
+
+                <!-- Company Info -->
+                <div class="footer__brand">
+                    <a href="index.html" aria-label="Masferrer & Partners - Inicio">
+                        <img src="Logotipo/Logo Masferrer & Partners - Horizontal SS.svg"
+                            alt="Masferrer & Partners" class="footer__logo">
+                    </a>
+                    <p class="footer__tagline">Outsourcing contable, financiero, tributario y laboral de excelencia
+                        para empresas que buscan crecer.</p>
+                    <div class="footer__social" aria-label="Redes sociales">
+                        <a href="#" aria-label="LinkedIn" class="footer__social-link">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Instagram" class="footer__social-link">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Services Links -->
+                <div class="footer__col">
+                    <h4 class="footer__col-title">Servicios</h4>
+                    <ul class="footer__links">
+                        <li><a href="servicios.html#contable" class="footer__link">Outsourcing Contable</a></li>
+                        <li><a href="servicios.html#financiero" class="footer__link">Outsourcing Financiero</a></li>
+                        <li><a href="servicios.html#tributario" class="footer__link">Outsourcing Tributario</a></li>
+                        <li><a href="servicios.html#laboral" class="footer__link">Outsourcing Laboral</a></li>
+                    </ul>
+                </div>
+
+                <!-- Company Links -->
+                <div class="footer__col">
+                    <h4 class="footer__col-title">Empresa</h4>
+                    <ul class="footer__links">
+                        <li><a href="nosotros.html" class="footer__link">Sobre Nosotros</a></li>
+                        <li><a href="nosotros.html#equipo" class="footer__link">Equipo</a></li>
+                        <li><a href="recursos.html" class="footer__link">Blog y Recursos</a></li>
+                        <li><a href="faq.html" class="footer__link">Preguntas Frecuentes</a></li>
+                        <li><a href="contacto.html" class="footer__link">Contacto</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="footer__col">
+                    <h4 class="footer__col-title">Contacto</h4>
+                    <ul class="footer__contact">
+                        <li class="footer__contact-item">
+                            <i data-lucide="map-pin" class="footer__contact-icon" aria-hidden="true"></i>
+                            <span>Dirección Placeholder<br>Santiago, Chile</span>
+                        </li>
+                        <li class="footer__contact-item">
+                            <i data-lucide="phone" class="footer__contact-icon" aria-hidden="true"></i>
+                            <a href="tel:+56912345678" class="footer__link">+56 9 1234 5678</a>
+                        </li>
+                        <li class="footer__contact-item">
+                            <i data-lucide="mail" class="footer__contact-icon" aria-hidden="true"></i>
+                            <a href="mailto:contacto@masferrer.cl" class="footer__link">contacto@masferrer.cl</a>
+                        </li>
+                        <li class="footer__contact-item">
+                            <i data-lucide="clock" class="footer__contact-icon" aria-hidden="true"></i>
+                            <span>Lun - Vie: 9:00 - 18:00</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="footer__bottom">
+                <p class="footer__copyright">&copy; 2026 Masferrer & Partners. Todos los derechos reservados.</p>
+                <div class="footer__legal">
+                    <a href="#" class="footer__link">Política de Privacidad</a>
+                    <span aria-hidden="true">·</span>
+                    <a href="#" class="footer__link">Términos y Condiciones</a>
+                    <span aria-hidden="true">·</span>
+                    <a href="#" class="footer__link">Aviso Legal</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Main JavaScript -->
+    <script src="main.js"></script>
+</body>
+
+</html>

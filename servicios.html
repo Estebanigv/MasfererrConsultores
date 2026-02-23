@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Servicios integrales de outsourcing contable, financiero, tributario y laboral. Soluciones personalizadas para tu empresa.">
+    <title>Nuestros Servicios - Masferrer &amp; Partners</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="hero-services.css">
+
+    <!-- GSAP -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* Page Hero - Compact subpage version */
+        .page-hero {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 60%, #1e4a78 100%);
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: var(--spacing-16) 0;
+        }
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 70% 50%, rgba(188, 26, 4, 0.15) 0%, transparent 60%);
+        }
+        .page-hero__content {
+            position: relative;
+            z-index: 1;
+        }
+        .page-hero__breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
+            font-size: var(--text-sm);
+            color: rgba(255,255,255,0.65);
+            margin-bottom: var(--spacing-4);
+        }
+        .page-hero__breadcrumb a {
+            color: rgba(255,255,255,0.65);
+            text-decoration: none;
+            transition: color var(--transition-base);
+        }
+        .page-hero__breadcrumb a:hover { color: var(--color-white); }
+        .page-hero__breadcrumb span { color: rgba(255,255,255,0.4); }
+        .page-hero__title {
+            font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl));
+            font-weight: var(--font-bold);
+            color: var(--color-white);
+            line-height: 1.15;
+            margin-bottom: var(--spacing-4);
+        }
+        .page-hero__subtitle {
+            font-size: var(--text-lg);
+            color: rgba(255,255,255,0.8);
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        /* Stats row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-8);
+            text-align: center;
+        }
+        .stats-row__number {
+            font-size: var(--text-4xl);
+            font-weight: var(--font-bold);
+            color: var(--color-accent);
+            line-height: 1;
+            margin-bottom: var(--spacing-2);
+        }
+        .stats-row__label {
+            font-size: var(--text-base);
+            color: var(--color-gray-600);
+            font-weight: var(--font-medium);
+        }
+
+        /* Service layout alternating */
+        .service-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-16);
+            align-items: center;
+        }
+        @media (max-width: 768px) {
+            .service-layout { grid-template-columns: 1fr; gap: var(--spacing-8); }
+            .service-layout--reverse .service-layout__aside { order: -1; }
+            .stats-row { grid-template-columns: 1fr; }
+        }
+
+        /* Styled checklist */
+        .checklist {
+            list-style: none;
+            padding: 0;
+            margin-bottom: var(--spacing-8);
+        }
+        .checklist__item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-3);
+            padding: var(--spacing-3) 0;
+            border-bottom: 1px solid var(--color-gray-100);
+        }
+        .checklist__item:last-child { border-bottom: none; }
+        .checklist__icon {
+            width: 22px;
+            height: 22px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .checklist__icon svg {
+            width: 12px;
+            height: 12px;
+            stroke: white;
+            stroke-width: 2.5;
+        }
+        .checklist__text strong {
+            display: block;
+            color: var(--color-gray-800);
+            font-weight: var(--font-semibold);
+            margin-bottom: 2px;
+        }
+        .checklist__text span {
+            color: var(--color-gray-600);
+            font-size: var(--text-sm);
+        }
+
+        /* Benefits card - dark */
+        .benefits-card {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--color-white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-10);
+        }
+        .benefits-card__title {
+            color: var(--color-white);
+            font-size: var(--text-xl);
+            font-weight: var(--font-bold);
+            margin-bottom: var(--spacing-6);
+        }
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+        }
+        .benefits-list__item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-4);
+            margin-bottom: var(--spacing-6);
+        }
+        .benefits-list__item:last-child { margin-bottom: 0; }
+        .benefits-list__icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(188, 26, 4, 0.25);
+            border-radius: var(--radius-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .benefits-list__icon svg { color: #f87171; }
+        .benefits-list__body strong {
+            display: block;
+            color: var(--color-white);
+            font-weight: var(--font-semibold);
+            margin-bottom: var(--spacing-1);
+        }
+        .benefits-list__body span {
+            color: rgba(255,255,255,0.8);
+            font-size: var(--text-sm);
+            line-height: 1.5;
+        }
+
+        /* Ideal for card */
+        .ideal-card {
+            background: var(--color-gray-50);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-8);
+            border: 1px solid var(--color-gray-200);
+        }
+        .ideal-card__title {
+            font-size: var(--text-xl);
+            font-weight: var(--font-bold);
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-6);
+        }
+        .ideal-list {
+            list-style: none;
+            padding: 0;
+        }
+        .ideal-list__item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-3);
+            margin-bottom: var(--spacing-5);
+            padding-bottom: var(--spacing-5);
+            border-bottom: 1px solid var(--color-gray-200);
+        }
+        .ideal-list__item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .ideal-list__emoji {
+            width: 40px;
+            height: 40px;
+            background: var(--color-white);
+            border-radius: var(--radius-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-xl);
+            flex-shrink: 0;
+            box-shadow: var(--shadow-sm);
+        }
+        .ideal-list__body strong {
+            display: block;
+            color: var(--color-primary);
+            font-weight: var(--font-semibold);
+            margin-bottom: 2px;
+        }
+        .ideal-list__body span { color: var(--color-gray-600); font-size: var(--text-sm); }
+
+        /* Alert insight card */
+        .insight-card {
+            border-left: 4px solid var(--color-accent);
+            background: var(--color-white);
+            border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
+            padding: var(--spacing-8);
+            box-shadow: var(--shadow-md);
+        }
+        .insight-card__heading {
+            font-size: var(--text-lg);
+            font-weight: var(--font-bold);
+            color: var(--color-accent);
+            margin-bottom: var(--spacing-5);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
+        }
+        .insight-card__heading svg { width: 20px; height: 20px; }
+        .insight-stat {
+            padding: var(--spacing-4) 0;
+            border-bottom: 1px solid var(--color-gray-100);
+        }
+        .insight-stat:last-of-type { border-bottom: none; }
+        .insight-stat strong { color: var(--color-primary); }
+        .insight-stat p { color: var(--color-gray-600); font-size: var(--text-sm); margin: 0; }
+        .insight-quote {
+            margin-top: var(--spacing-5);
+            padding: var(--spacing-4);
+            background: var(--color-gray-50);
+            border-radius: var(--radius-base);
+            font-style: italic;
+            color: var(--color-gray-700);
+            font-size: var(--text-sm);
+            line-height: 1.6;
+        }
+
+        /* Labour benefits card */
+        .labour-card {
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
+            color: var(--color-white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-10);
+        }
+        .labour-card__title {
+            color: var(--color-white);
+            font-size: var(--text-xl);
+            font-weight: var(--font-bold);
+            margin-bottom: var(--spacing-4);
+        }
+        .labour-card__desc {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: var(--spacing-6);
+            line-height: 1.7;
+            font-size: var(--text-sm);
+        }
+        .labour-checklist {
+            list-style: none;
+            padding: 0;
+        }
+        .labour-checklist__item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-3);
+            color: rgba(255,255,255,0.95);
+            font-size: var(--text-sm);
+            margin-bottom: var(--spacing-3);
+        }
+        .labour-checklist__item:last-child { margin-bottom: 0; }
+        .labour-checklist__dot {
+            width: 20px;
+            height: 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .labour-checklist__dot svg { width: 11px; height: 11px; stroke: white; stroke-width: 2.5; }
+
+        /* Service nav tabs */
+        .service-nav {
+            display: flex;
+            gap: var(--spacing-2);
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: var(--spacing-12);
+        }
+        .service-nav__link {
+            padding: var(--spacing-2) var(--spacing-5);
+            border-radius: var(--radius-full);
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            color: var(--color-gray-600);
+            text-decoration: none;
+            border: 1px solid var(--color-gray-300);
+            transition: all var(--transition-base);
+        }
+        .service-nav__link:hover,
+        .service-nav__link--active {
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-color: var(--color-primary);
+        }
+
+        /* Section heading style */
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-2);
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: var(--spacing-3);
+        }
+        .section-label::before {
+            content: '';
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: var(--color-accent);
+            border-radius: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header class="header" id="header">
+        <div class="container header__container">
+            <a href="index.html" class="header__logo-link">
+                <img src="Logotipo/Logo Masferrer & Partners - Horizontal SS.svg" alt="Masferrer &amp; Partners"
+                    class="header__logo">
+            </a>
+            <nav class="header__nav" id="nav">
+                <ul class="nav__list">
+                    <li><a href="index.html" class="nav__link">Inicio</a></li>
+                    <li><a href="servicios.html" class="nav__link nav__link--active">Servicios</a></li>
+                    <li><a href="nosotros.html" class="nav__link">Nosotros</a></li>
+                    <li><a href="contacto.html" class="nav__link">Contacto</a></li>
+                    <li><a href="contacto.html#agendar" class="btn btn--primary btn--sm">Agenda una Reunion</a></li>
+                </ul>
+            </nav>
+            <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation">
+                <span class="nav__toggle-icon"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="container page-hero__content">
+            <div class="page-hero__breadcrumb">
+                <a href="index.html">Inicio</a>
+                <span>/</span>
+                <span style="color: rgba(255,255,255,0.85);">Servicios</span>
+            </div>
+            <h1 class="page-hero__title">Servicios de Outsourcing Integral</h1>
+            <p class="page-hero__subtitle">Soluciones especializadas en gestión contable, financiera, tributaria y laboral para empresas de todos los tamaños.</p>
+        </div>
+    </section>
+
+    <!-- INTRO / STATS -->
+    <section class="section">
+        <div class="container">
+            <div style="max-width: 860px; margin: 0 auto; text-align: center;">
+                <span class="section-label">Nuestro enfoque</span>
+                <h2 style="margin-bottom: var(--spacing-6);">Outsourcing Integrado para tu Empresa</h2>
+                <p style="font-size: var(--text-lg); color: var(--color-gray-600); line-height: 1.8; margin-bottom: var(--spacing-12);">
+                    En Masferrer &amp; Partners, entendemos que la gestión administrativa no es solo una obligación, sino
+                    una oportunidad para optimizar recursos y mejorar la toma de decisiones. Nuestros servicios están
+                    diseñados para trabajar de manera integrada, brindándote una solución completa que se adapta a las
+                    necesidades de tu empresa.
+                </p>
+                <div class="stats-row">
+                    <div>
+                        <div class="stats-row__number">15+</div>
+                        <div class="stats-row__label">Años de Experiencia</div>
+                    </div>
+                    <div>
+                        <div class="stats-row__number">150+</div>
+                        <div class="stats-row__label">Empresas Atendidas</div>
+                    </div>
+                    <div>
+                        <div class="stats-row__number">40%</div>
+                        <div class="stats-row__label">Ahorro Promedio</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service Quick Nav -->
+            <div style="margin-top: var(--spacing-16);">
+                <nav class="service-nav" aria-label="Servicios">
+                    <a href="#contable" class="service-nav__link">Contable</a>
+                    <a href="#financiero" class="service-nav__link">Financiero</a>
+                    <a href="#tributario" class="service-nav__link">Tributario</a>
+                    <a href="#laboral" class="service-nav__link">Laboral</a>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICE 1: Outsourcing Contable -->
+    <section class="section section--light" id="contable">
+        <div class="container">
+            <div class="service-layout">
+                <div>
+                    <span class="badge badge--accent" style="margin-bottom: var(--spacing-4); display: inline-block;">Servicio mas solicitado</span>
+                    <span class="section-label">01 / Contable</span>
+                    <h2 style="margin-bottom: var(--spacing-4);">Outsourcing Contable</h2>
+                    <p style="font-size: var(--text-lg); color: var(--color-gray-600); margin-bottom: var(--spacing-6); line-height: 1.7;">
+                        Gestión completa de tu contabilidad con profesionales certificados y tecnología de punta.
+                        Registros precisos, estados financieros oportunos y cumplimiento normativo garantizado.
+                    </p>
+
+                    <h3 style="font-size: var(--text-base); font-weight: var(--font-semibold); color: var(--color-gray-700); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--spacing-4);">Que incluye</h3>
+                    <ul class="checklist">
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span class="checklist__text">
+                                <strong>Contabilidad General</strong>
+                                <span>Registro diario de operaciones, libro diario y mayor</span>
+                            </span>
+                        </li>
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span class="checklist__text">
+                                <strong>Estados Financieros</strong>
+                                <span>Balance general, estado de resultados, flujo de caja mensual</span>
+                            </span>
+                        </li>
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span class="checklist__text">
+                                <strong>Conciliaciones Bancarias</strong>
+                                <span>Cuadratura de cuentas bancarias y control de tesoreria</span>
+                            </span>
+                        </li>
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span class="checklist__text">
+                                <strong>Control de Activos Fijos</strong>
+                                <span>Registro, depreciacion y control de bienes del activo fijo</span>
+                            </span>
+                        </li>
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span class="checklist__text">
+                                <strong>Proceso de Cierre</strong>
+                                <span>Cierre contable mensual y anual con ajustes necesarios</span>
+                            </span>
+                        </li>
+                    </ul>
+
+                    <a href="contacto.html#agendar" class="btn btn--primary btn--lg">Solicitar este Servicio</a>
+                </div>
+
+                <div class="service-layout__aside">
+                    <div class="benefits-card">
+                        <h3 class="benefits-card__title">Beneficios Clave</h3>
+                        <ul class="benefits-list">
+                            <li class="benefits-list__item">
+                                <div class="benefits-list__icon">
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </div>
+                                <div class="benefits-list__body">
+                                    <strong>Informacion Precisa</strong>
+                                    <span>Estados financieros confiables para mejores decisiones</span>
+                                </div>
+                            </li>
+                            <li class="benefits-list__item">
+                                <div class="benefits-list__icon">
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </div>
+                                <div class="benefits-list__body">
+                                    <strong>Ahorro de Tiempo</strong>
+                                    <span>Libera recursos para enfocarte en el core de tu negocio</span>
+                                </div>
+                            </li>
+                            <li class="benefits-list__item">
+                                <div class="benefits-list__icon">
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                    </svg>
+                                </div>
+                                <div class="benefits-list__body">
+                                    <strong>Escalabilidad</strong>
+                                    <span>Servicio que crece con tu empresa sin necesidad de contratar</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICE 2: Outsourcing Financiero -->
+    <section class="section" id="financiero">
+        <div class="container">
+            <div class="service-layout service-layout--reverse">
+                <div class="service-layout__aside">
+                    <div class="ideal-card">
+                        <h3 class="ideal-card__title">Para quien es ideal</h3>
+                        <ul class="ideal-list">
+                            <li class="ideal-list__item">
+                                <div class="ideal-list__emoji">&#128640;</div>
+                                <div class="ideal-list__body">
+                                    <strong>Empresas en Crecimiento</strong>
+                                    <span>Que necesitan proyecciones y analisis para escalar</span>
+                                </div>
+                            </li>
+                            <li class="ideal-list__item">
+                                <div class="ideal-list__emoji">&#128202;</div>
+                                <div class="ideal-list__body">
+                                    <strong>Negocios con Multiples Lineas</strong>
+                                    <span>Que requieren analisis de rentabilidad por producto/servicio</span>
+                                </div>
+                            </li>
+                            <li class="ideal-list__item">
+                                <div class="ideal-list__emoji">&#128188;</div>
+                                <div class="ideal-list__body">
+                                    <strong>Directorios y Gerencias</strong>
+                                    <span>Que necesitan informacion ejecutiva para decisiones estrategicas</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="section-label">02 / Financiero</span>
+                    <h2 style="margin-bottom: var(--spacing-4);">Outsourcing Financiero</h2>
+                    <p style="font-size: var(--text-lg); color: var(--color-gray-600); margin-bottom: var(--spacing-6); line-height: 1.7;">
+                        Analisis financiero estrategico para impulsar el crecimiento y la rentabilidad de tu empresa.
+                        Informacion relevante y oportuna para tomar decisiones inteligentes.
+                    </p>
+
+                    <h3 style="font-size: var(--text-base); font-weight: var(--font-semibold); color: var(--color-gray-700); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--spacing-4);">Que incluye</h3>
+                    <ul class="checklist">
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span class="checklist__text">
+                                <strong>Analisis Financiero</strong>
+                                <span>Indicadores clave (KPIs), ratios financieros, analisis de rentabilidad</span>
+                            </span>
+                        </li>
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span class="checklist__text">
+                                <strong>Proyecciones Financieras</strong>
+                                <span>Presupuestos anuales, flujo de caja proyectado, escenarios</span>
+                            </span>
+                        </li>
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span class="checklist__text">
+                                <strong>Control de Gestion</strong>
+                                <span>Analisis de desviaciones presupuestarias y propuestas correctivas</span>
+                            </span>
+                        </li>
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span class="checklist__text">
+                                <strong>Reporting Ejecutivo</strong>
+                                <span>Dashboards y reportes personalizados para directorio</span>
+                            </span>
+                        </li>
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span class="checklist__text">
+                                <strong>Analisis de Inversiones</strong>
+                                <span>Evaluacion de proyectos, VAN, TIR, periodo de recuperacion</span>
+                            </span>
+                        </li>
+                    </ul>
+
+                    <a href="contacto.html#agendar" class="btn btn--primary btn--lg">Solicitar este Servicio</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICE 3: Outsourcing Tributario -->
+    <section class="section section--light" id="tributario">
+        <div class="container">
+            <div class="service-layout">
+                <div>
+                    <span class="section-label">03 / Tributario</span>
+                    <h2 style="margin-bottom: var(--spacing-4);">Outsourcing Tributario</h2>
+                    <p style="font-size: var(--text-lg); color: var(--color-gray-600); margin-bottom: var(--spacing-6); line-height: 1.7;">
+                        Cumplimiento tributario total y planificacion fiscal estrategica. Mantén tu empresa actualizada
+                        con todas las obligaciones impositivas y optimiza tu carga tributaria de manera legal.
+                    </p>
+
+                    <h3 style="font-size: var(--text-base); font-weight: var(--font-semibold); color: var(--color-gray-700); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--spacing-4);">Que incluye</h3>
+                    <ul class="checklist">
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span class="checklist__text">
+                                <strong>Declaraciones Mensuales</strong>
+                                <span>IVA, retenciones, PPM y otros impuestos periodicos</span>
+                            </span>
+                        </li>
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span class="checklist__text">
+                                <strong>Impuesto a la Renta</strong>
+                                <span>Preparacion y presentacion de declaracion anual (F22)</span>
+                            </span>
+                        </li>
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span class="checklist__text">
+                                <strong>Planificacion Tributaria</strong>
+                                <span>Estrategias legales para optimizar carga impositiva</span>
+                            </span>
+                        </li>
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span class="checklist__text">
+                                <strong>Asesoria en Fiscalizaciones</strong>
+                                <span>Representacion y soporte en procesos del SII</span>
+                            </span>
+                        </li>
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span class="checklist__text">
+                                <strong>Actualizacion Normativa</strong>
+                                <span>Monitoreo de cambios legales y comunicacion oportuna</span>
+                            </span>
+                        </li>
+                    </ul>
+
+                    <a href="contacto.html#agendar" class="btn btn--primary btn--lg">Solicitar este Servicio</a>
+                </div>
+
+                <div class="service-layout__aside">
+                    <div class="insight-card">
+                        <h3 class="insight-card__heading">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                            </svg>
+                            Sabias que...
+                        </h3>
+                        <div class="insight-stat">
+                            <p>El <strong>68% de las empresas</strong> enfrenta multas o recargos por incumplimientos tributarios evitables.</p>
+                        </div>
+                        <div class="insight-stat">
+                            <p><strong>Una buena planificacion tributaria</strong> puede reducir legalmente hasta un 20% en impuestos.</p>
+                        </div>
+                        <div class="insight-stat">
+                            <p><strong>Los cambios normativos</strong> ocurren constantemente. Mantenerse actualizado es critico.</p>
+                        </div>
+                        <div class="insight-quote">
+                            "Con Masferrer &amp; Partners, nunca mas te preocupes por plazos ni multas tributarias."
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICE 4: Outsourcing Laboral -->
+    <section class="section" id="laboral">
+        <div class="container">
+            <div class="service-layout service-layout--reverse">
+                <div class="service-layout__aside">
+                    <div class="labour-card">
+                        <h3 class="labour-card__title">Complejidad Laboral Simplificada</h3>
+                        <p class="labour-card__desc">
+                            La legislacion laboral chilena es compleja y esta en constante cambio. Nuestro equipo
+                            especializado se encarga de:
+                        </p>
+                        <ul class="labour-checklist">
+                            <li class="labour-checklist__item">
+                                <span class="labour-checklist__dot">
+                                    <svg viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </span>
+                                Calculos precisos de liquidaciones y finiquitos
+                            </li>
+                            <li class="labour-checklist__item">
+                                <span class="labour-checklist__dot">
+                                    <svg viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </span>
+                                Cumplimiento de leyes laborales vigentes
+                            </li>
+                            <li class="labour-checklist__item">
+                                <span class="labour-checklist__dot">
+                                    <svg viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </span>
+                                Declaraciones previsionales sin errores
+                            </li>
+                            <li class="labour-checklist__item">
+                                <span class="labour-checklist__dot">
+                                    <svg viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </span>
+                                Asesoria en conflictos laborales
+                            </li>
+                            <li class="labour-checklist__item">
+                                <span class="labour-checklist__dot">
+                                    <svg viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </span>
+                                Actualizacion ante reformas laborales
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="section-label">04 / Laboral</span>
+                    <h2 style="margin-bottom: var(--spacing-4);">Outsourcing Laboral</h2>
+                    <p style="font-size: var(--text-lg); color: var(--color-gray-600); margin-bottom: var(--spacing-6); line-height: 1.7;">
+                        Administracion integral de remuneraciones y cumplimiento de todas las obligaciones laborales y
+                        previsionales. Tranquilidad para ti, satisfaccion para tus colaboradores.
+                    </p>
+
+                    <h3 style="font-size: var(--text-base); font-weight: var(--font-semibold); color: var(--color-gray-700); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--spacing-4);">Que incluye</h3>
+                    <ul class="checklist">
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span class="checklist__text">
+                                <strong>Liquidacion de Sueldos</strong>
+                                <span>Calculo y emision de liquidaciones mensuales</span>
+                            </span>
+                        </li>
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span class="checklist__text">
+                                <strong>Declaraciones Previsionales</strong>
+                                <span>Previred, mutual, caja de compensacion</span>
+                            </span>
+                        </li>
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span class="checklist__text">
+                                <strong>Contratos y Finiquitos</strong>
+                                <span>Preparacion de documentos laborales</span>
+                            </span>
+                        </li>
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span class="checklist__text">
+                                <strong>Libro de Remuneraciones</strong>
+                                <span>Mantencion y actualizacion electronica</span>
+                            </span>
+                        </li>
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span class="checklist__text">
+                                <strong>Asesoria Laboral</strong>
+                                <span>Soporte continuo en temas de RRHH y legislacion laboral</span>
+                            </span>
+                        </li>
+                    </ul>
+
+                    <a href="contacto.html#agendar" class="btn btn--primary btn--lg">Solicitar este Servicio</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="section section--dark">
+        <div class="container">
+            <div style="max-width: 700px; margin: 0 auto; text-align: center;">
+                <h2 style="margin-bottom: var(--spacing-6);">Necesitas una Solucion Integral?</h2>
+                <p style="margin-bottom: var(--spacing-8); font-size: var(--text-lg); color: var(--color-gray-200); line-height: 1.7;">
+                    La mayoria de nuestros clientes contratan multiples servicios para obtener una gestion
+                    administrativa completa. Agenda una reunion y disenaremos la solucion perfecta para tu empresa.
+                </p>
+                <a href="contacto.html#agendar" class="btn btn--primary btn--lg">Agenda una Reunion Gratuita</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__section">
+                    <img src="Logotipo/Logo Masferrer & Partners - Horizontal SS.svg" alt="Masferrer &amp; Partners"
+                        style="height: 60px; margin-bottom: var(--spacing-4); filter: brightness(0) invert(1);">
+                    <p style="color: var(--color-gray-300); margin-bottom: var(--spacing-4);">
+                        Outsourcing contable, financiero, tributario y laboral de excelencia para empresas que buscan crecer.
+                    </p>
+                    <div style="display: flex; gap: var(--spacing-4);">
+                        <a href="#" aria-label="LinkedIn" style="color: var(--color-gray-300); transition: color var(--transition-base);">
+                            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="#" aria-label="Instagram" style="color: var(--color-gray-300); transition: color var(--transition-base);">
+                            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer__section">
+                    <h4>Servicios</h4>
+                    <ul class="footer__links">
+                        <li><a href="servicios.html#contable" class="footer__link">Outsourcing Contable</a></li>
+                        <li><a href="servicios.html#financiero" class="footer__link">Outsourcing Financiero</a></li>
+                        <li><a href="servicios.html#tributario" class="footer__link">Outsourcing Tributario</a></li>
+                        <li><a href="servicios.html#laboral" class="footer__link">Outsourcing Laboral</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__section">
+                    <h4>Empresa</h4>
+                    <ul class="footer__links">
+                        <li><a href="nosotros.html" class="footer__link">Nosotros</a></li>
+                        <li><a href="recursos.html" class="footer__link">Recursos</a></li>
+                        <li><a href="faq.html" class="footer__link">Preguntas Frecuentes</a></li>
+                        <li><a href="contacto.html" class="footer__link">Contacto</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__section">
+                    <h4>Contacto</h4>
+                    <ul class="footer__links">
+                        <li style="color: var(--color-gray-300); margin-bottom: var(--spacing-3);">Direccion Placeholder<br>Santiago, Chile</li>
+                        <li style="color: var(--color-gray-300); margin-bottom: var(--spacing-3);"><a href="tel:+56912345678" class="footer__link">+56 9 1234 5678</a></li>
+                        <li style="color: var(--color-gray-300); margin-bottom: var(--spacing-3);"><a href="mailto:contacto@masferrer.cl" class="footer__link">contacto@masferrer.cl</a></li>
+                        <li style="color: var(--color-gray-300);">Lun - Vie: 9:00 - 18:00</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer__bottom">
+                <p>&copy; 2026 Masferrer &amp; Partners. Todos los derechos reservados.</p>
+                <p style="margin-top: var(--spacing-2);">
+                    <a href="#" class="footer__link">Politica de Privacidad</a> |
+                    <a href="#" class="footer__link">Terminos y Condiciones</a> |
+                    <a href="#" class="footer__link">Aviso Legal</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Recursos, guias y articulos sobre contabilidad, finanzas, tributacion y temas laborales para empresas.">
+    <title>Recursos y Blog - Masferrer &amp; Partners</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="hero-services.css">
+
+    <!-- GSAP -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* Page Hero */
+        .page-hero {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 60%, #1e4a78 100%);
+            min-height: 300px;
+            display: flex; align-items: center;
+            position: relative; overflow: hidden;
+            padding: var(--spacing-16) 0;
+        }
+        .page-hero::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 70% 50%, rgba(188, 26, 4, 0.15) 0%, transparent 60%);
+        }
+        .page-hero__content { position: relative; z-index: 1; }
+        .page-hero__breadcrumb {
+            display: flex; align-items: center; gap: var(--spacing-2);
+            font-size: var(--text-sm); color: rgba(255,255,255,0.65); margin-bottom: var(--spacing-4);
+        }
+        .page-hero__breadcrumb a { color: rgba(255,255,255,0.65); text-decoration: none; }
+        .page-hero__breadcrumb a:hover { color: var(--color-white); }
+        .page-hero__breadcrumb span { color: rgba(255,255,255,0.4); }
+        .page-hero__title {
+            font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl));
+            font-weight: var(--font-bold); color: var(--color-white);
+            line-height: 1.15; margin-bottom: var(--spacing-4);
+        }
+        .page-hero__subtitle {
+            font-size: var(--text-lg); color: rgba(255,255,255,0.8);
+            max-width: 600px; line-height: 1.7;
+        }
+
+        /* Section label */
+        .section-label {
+            display: inline-flex; align-items: center; gap: var(--spacing-2);
+            font-size: var(--text-sm); font-weight: var(--font-semibold);
+            color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.08em;
+            margin-bottom: var(--spacing-3);
+        }
+        .section-label::before {
+            content: ''; display: block; width: 20px; height: 2px;
+            background: var(--color-accent); border-radius: 2px;
+        }
+
+        /* Info banner */
+        .info-banner {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-5) var(--spacing-6);
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-4);
+        }
+        .info-banner__icon {
+            width: 40px; height: 40px;
+            background: rgba(255,255,255,0.15);
+            border-radius: var(--radius-base);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            font-size: var(--text-xl);
+        }
+        .info-banner__text {
+            color: rgba(255,255,255,0.9);
+            font-size: var(--text-sm);
+            line-height: 1.6;
+        }
+        .info-banner__text strong { color: white; }
+
+        /* Category cards */
+        .category-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-gray-200);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-6);
+            text-align: center;
+            transition: box-shadow var(--transition-base), transform var(--transition-base), border-color var(--transition-base);
+            cursor: pointer;
+        }
+        .category-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+            border-color: var(--color-primary);
+        }
+        .category-card__icon {
+            width: 56px; height: 56px;
+            border-radius: var(--radius-lg);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto var(--spacing-4);
+            font-size: var(--text-2xl);
+        }
+        .category-card__icon--navy { background: rgba(14,40,65,0.08); }
+        .category-card__icon--red { background: rgba(188,26,4,0.08); }
+        .category-card__icon--green { background: rgba(5,150,105,0.08); }
+        .category-card__title {
+            font-size: var(--text-base);
+            font-weight: var(--font-semibold);
+            color: var(--color-gray-800);
+            margin-bottom: var(--spacing-2);
+        }
+        .category-card__desc {
+            font-size: var(--text-sm);
+            color: var(--color-gray-500);
+            line-height: 1.5;
+        }
+
+        /* Article cards */
+        .article-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-gray-200);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow var(--transition-base), transform var(--transition-base);
+        }
+        .article-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-3px);
+        }
+        .article-card__top {
+            background: linear-gradient(135deg, var(--color-gray-100) 0%, var(--color-gray-50) 100%);
+            padding: var(--spacing-6);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .article-card__body {
+            padding: var(--spacing-6);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .article-card__date {
+            font-size: var(--text-xs);
+            color: var(--color-gray-400);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-1);
+            margin-bottom: var(--spacing-3);
+        }
+        .article-card__date svg { width: 13px; height: 13px; stroke: currentColor; stroke-width: 2; }
+        .article-card__title {
+            font-size: var(--text-base);
+            font-weight: var(--font-bold);
+            color: var(--color-gray-800);
+            line-height: 1.4;
+            margin-bottom: var(--spacing-3);
+            flex: 1;
+        }
+        .article-card__excerpt {
+            font-size: var(--text-sm);
+            color: var(--color-gray-500);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-5);
+        }
+        .article-card__link {
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-accent);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-1);
+            transition: gap var(--transition-base);
+        }
+        .article-card__link:hover { gap: var(--spacing-2); }
+        .article-card__link svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2; }
+
+        /* Badge variants */
+        .badge--tributario { background: rgba(188,26,4,0.1); color: var(--color-accent); }
+        .badge--pymes { background: rgba(14,40,65,0.1); color: var(--color-primary); }
+        .badge--laboral { background: rgba(5,150,105,0.1); color: var(--color-success); }
+        .badge--calendario { background: rgba(217,119,6,0.1); color: var(--color-warning); }
+        .badge--caso { background: rgba(37,99,235,0.1); color: var(--color-info); }
+        .badge--finanzas { background: rgba(14,40,65,0.1); color: var(--color-primary); }
+
+        /* Pagination */
+        .pagination {
+            display: inline-flex;
+            gap: var(--spacing-2);
+            align-items: center;
+        }
+        .pagination__btn {
+            width: 40px; height: 40px;
+            border-radius: var(--radius-base);
+            border: 1px solid var(--color-gray-300);
+            background: var(--color-white);
+            color: var(--color-gray-700);
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all var(--transition-base);
+            font-family: var(--font-primary);
+        }
+        .pagination__btn:hover:not(:disabled) { border-color: var(--color-primary); color: var(--color-primary); }
+        .pagination__btn--active { background: var(--color-primary); color: white; border-color: var(--color-primary); }
+        .pagination__btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .pagination__btn--wide { width: auto; padding: 0 var(--spacing-4); }
+
+        /* Download resource cards */
+        .resource-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-gray-200);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-6);
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-5);
+            transition: box-shadow var(--transition-base), transform var(--transition-base);
+        }
+        .resource-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+        .resource-card__icon {
+            width: 56px; height: 56px;
+            border-radius: var(--radius-lg);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .resource-card__icon--navy { background: var(--color-primary); }
+        .resource-card__icon--red { background: var(--color-accent); }
+        .resource-card__body { flex: 1; }
+        .resource-card__format {
+            font-size: var(--text-xs);
+            font-weight: var(--font-bold);
+            color: var(--color-gray-400);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: var(--spacing-1);
+        }
+        .resource-card__title {
+            font-size: var(--text-base);
+            font-weight: var(--font-semibold);
+            color: var(--color-gray-800);
+            margin-bottom: var(--spacing-2);
+            line-height: 1.4;
+        }
+        .resource-card__desc {
+            font-size: var(--text-sm);
+            color: var(--color-gray-500);
+            margin-bottom: var(--spacing-4);
+            line-height: 1.5;
+        }
+
+        /* Newsletter section */
+        .newsletter-form {
+            display: flex;
+            gap: var(--spacing-3);
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+        .newsletter-input {
+            flex: 1;
+            min-width: 240px;
+            padding: var(--spacing-3) var(--spacing-4);
+            border: 1.5px solid rgba(255,255,255,0.2);
+            border-radius: var(--radius-base);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-family: var(--font-primary);
+            font-size: var(--text-base);
+            outline: none;
+            transition: border-color var(--transition-base), background var(--transition-base);
+        }
+        .newsletter-input::placeholder { color: rgba(255,255,255,0.5); }
+        .newsletter-input:focus {
+            border-color: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.15);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header class="header" id="header">
+        <div class="container header__container">
+            <a href="index.html" class="header__logo-link">
+                <img src="Logotipo/Logo Masferrer & Partners - Horizontal SS.svg" alt="Masferrer &amp; Partners"
+                    class="header__logo">
+            </a>
+            <nav class="header__nav" id="nav">
+                <ul class="nav__list">
+                    <li><a href="index.html" class="nav__link">Inicio</a></li>
+                    <li><a href="servicios.html" class="nav__link">Servicios</a></li>
+                    <li><a href="nosotros.html" class="nav__link">Nosotros</a></li>
+                    <li><a href="contacto.html" class="nav__link">Contacto</a></li>
+                    <li><a href="contacto.html#agendar" class="btn btn--primary btn--sm">Agenda una Reunion</a></li>
+                </ul>
+            </nav>
+            <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation">
+                <span class="nav__toggle-icon"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="container page-hero__content">
+            <div class="page-hero__breadcrumb">
+                <a href="index.html">Inicio</a>
+                <span>/</span>
+                <span style="color: rgba(255,255,255,0.85);">Recursos</span>
+            </div>
+            <h1 class="page-hero__title">Recursos y Blog</h1>
+            <p class="page-hero__subtitle">Mantente informado con nuestras guias, articulos y recursos sobre gestion administrativa.</p>
+        </div>
+    </section>
+
+    <!-- INTRO -->
+    <section class="section">
+        <div class="container">
+            <div style="max-width: 760px; margin: 0 auto; text-align: center; margin-bottom: var(--spacing-10);">
+                <span class="section-label">Centro de conocimiento</span>
+                <h2 style="margin-bottom: var(--spacing-4);">Compartimos nuestro Conocimiento</h2>
+                <p style="font-size: var(--text-lg); color: var(--color-gray-600); line-height: 1.8; margin-bottom: var(--spacing-8);">
+                    Compartimos nuestro conocimiento y experiencia para ayudarte a tomar mejores decisiones en la
+                    gestion administrativa de tu empresa.
+                </p>
+                <div class="info-banner">
+                    <div class="info-banner__icon">&#128204;</div>
+                    <p class="info-banner__text">
+                        <strong>Nota Importante:</strong> Esta seccion esta en desarrollo. El objetivo es automatizar
+                        contenido relevante desde "Diario Financiero" u otras fuentes especializadas. Por ahora,
+                        presentamos la estructura base con articulos de ejemplo.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="section section--light">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: var(--spacing-10);">
+                <span class="section-label">Temas</span>
+                <h2>Categorias</h2>
+            </div>
+
+            <div class="grid grid--3">
+                <div class="category-card">
+                    <div class="category-card__icon category-card__icon--red">&#128202;</div>
+                    <h3 class="category-card__title">Actualizaciones Tributarias</h3>
+                    <p class="category-card__desc">Ultimos cambios en la legislacion tributaria, plazos y lineamientos del SII.</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-card__icon category-card__icon--navy">&#128161;</div>
+                    <h3 class="category-card__title">Tips para PYMEs</h3>
+                    <p class="category-card__desc">Consejos practicos para mejorar la gestion financiera y administrativa.</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-card__icon category-card__icon--green">&#128101;</div>
+                    <h3 class="category-card__title">Guias Laborales</h3>
+                    <p class="category-card__desc">Informacion sobre legislacion laboral, remuneraciones y derecho del trabajador.</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-card__icon category-card__icon--red">&#128197;</div>
+                    <h3 class="category-card__title">Calendarios</h3>
+                    <p class="category-card__desc">Fechas importantes: vencimientos tributarios, laborales y contables.</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-card__icon category-card__icon--navy">&#128209;</div>
+                    <h3 class="category-card__title">Casos de Exito</h3>
+                    <p class="category-card__desc">Historias de como hemos ayudado a nuestros clientes a crecer.</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-card__icon category-card__icon--green">&#128200;</div>
+                    <h3 class="category-card__title">Finanzas Empresariales</h3>
+                    <p class="category-card__desc">Analisis financiero, KPIs y metricas para mejorar la rentabilidad.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LATEST ARTICLES -->
+    <section class="section">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: var(--spacing-12);">
+                <span class="section-label">Blog</span>
+                <h2>Articulos Recientes</h2>
+            </div>
+
+            <div class="grid grid--3" style="margin-bottom: var(--spacing-10);">
+
+                <!-- Article 1 -->
+                <div class="article-card">
+                    <div class="article-card__top">
+                        <span class="badge badge--tributario">Actualizacion Tributaria</span>
+                        <span style="font-size: var(--text-2xl);">&#128202;</span>
+                    </div>
+                    <div class="article-card__body">
+                        <p class="article-card__date">
+                            <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            15 de Febrero, 2026
+                        </p>
+                        <h3 class="article-card__title">Cambios en el IVA para 2026: Lo que debes saber</h3>
+                        <p class="article-card__excerpt">Las nuevas modificaciones al IVA entraran en vigencia en marzo. Conoce como afectaran a tu empresa y que acciones tomar.</p>
+                        <a href="#" class="article-card__link">
+                            Leer mas
+                            <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Article 2 -->
+                <div class="article-card">
+                    <div class="article-card__top">
+                        <span class="badge badge--pymes">Tips PYMEs</span>
+                        <span style="font-size: var(--text-2xl);">&#128161;</span>
+                    </div>
+                    <div class="article-card__body">
+                        <p class="article-card__date">
+                            <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            10 de Febrero, 2026
+                        </p>
+                        <h3 class="article-card__title">5 Indicadores Financieros que Toda PYME Debe Monitorear</h3>
+                        <p class="article-card__excerpt">Aprende a medir la salud financiera de tu empresa con estos 5 KPIs esenciales que te ayudaran a tomar mejores decisiones.</p>
+                        <a href="#" class="article-card__link">
+                            Leer mas
+                            <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Article 3 -->
+                <div class="article-card">
+                    <div class="article-card__top">
+                        <span class="badge badge--laboral">Guia Laboral</span>
+                        <span style="font-size: var(--text-2xl);">&#128101;</span>
+                    </div>
+                    <div class="article-card__body">
+                        <p class="article-card__date">
+                            <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            5 de Febrero, 2026
+                        </p>
+                        <h3 class="article-card__title">Guia Completa: Calculo de Finiquitos 2026</h3>
+                        <p class="article-card__excerpt">Paso a paso para calcular finiquitos correctamente segun la legislacion vigente, evitando errores costosos.</p>
+                        <a href="#" class="article-card__link">
+                            Leer mas
+                            <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Article 4 -->
+                <div class="article-card">
+                    <div class="article-card__top">
+                        <span class="badge badge--calendario">Calendario</span>
+                        <span style="font-size: var(--text-2xl);">&#128197;</span>
+                    </div>
+                    <div class="article-card__body">
+                        <p class="article-card__date">
+                            <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            1 de Febrero, 2026
+                        </p>
+                        <h3 class="article-card__title">Vencimientos Tributarios: Marzo 2026</h3>
+                        <p class="article-card__excerpt">Todas las fechas importantes de declaraciones y pagos de impuestos para el proximo mes.</p>
+                        <a href="#" class="article-card__link">
+                            Ver calendario
+                            <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Article 5 -->
+                <div class="article-card">
+                    <div class="article-card__top">
+                        <span class="badge badge--caso">Caso de Exito</span>
+                        <span style="font-size: var(--text-2xl);">&#128209;</span>
+                    </div>
+                    <div class="article-card__body">
+                        <p class="article-card__date">
+                            <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            28 de Enero, 2026
+                        </p>
+                        <h3 class="article-card__title">Como una Startup Tecnologica Redujo 50% sus Costos Administrativos</h3>
+                        <p class="article-card__excerpt">Historia de exito de como implementamos outsourcing integral en una startup en crecimiento acelerado.</p>
+                        <a href="#" class="article-card__link">
+                            Leer historia
+                            <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Article 6 -->
+                <div class="article-card">
+                    <div class="article-card__top">
+                        <span class="badge badge--finanzas">Finanzas</span>
+                        <span style="font-size: var(--text-2xl);">&#128200;</span>
+                    </div>
+                    <div class="article-card__body">
+                        <p class="article-card__date">
+                            <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            22 de Enero, 2026
+                        </p>
+                        <h3 class="article-card__title">Flujo de Caja: La Metrica Mas Importante para PYMEs</h3>
+                        <p class="article-card__excerpt">Entiende por que el flujo de caja es mas importante que las utilidades y como proyectarlo correctamente.</p>
+                        <a href="#" class="article-card__link">
+                            Leer mas
+                            <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Pagination -->
+            <div style="text-align: center;">
+                <div class="pagination">
+                    <button class="pagination__btn pagination__btn--wide" disabled>
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                        Anterior
+                    </button>
+                    <button class="pagination__btn pagination__btn--active">1</button>
+                    <button class="pagination__btn">2</button>
+                    <button class="pagination__btn">3</button>
+                    <button class="pagination__btn pagination__btn--wide">
+                        Siguiente
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DOWNLOADABLE RESOURCES -->
+    <section class="section section--light">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: var(--spacing-10);">
+                <span class="section-label">Herramientas</span>
+                <h2>Recursos Descargables</h2>
+            </div>
+
+            <div class="grid grid--2">
+
+                <!-- Resource 1 -->
+                <div class="resource-card">
+                    <div class="resource-card__icon resource-card__icon--navy">
+                        <svg width="28" height="28" fill="none" stroke="white" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                    </div>
+                    <div class="resource-card__body">
+                        <p class="resource-card__format">PDF &mdash; Gratuito</p>
+                        <h3 class="resource-card__title">Calendario Tributario 2026</h3>
+                        <p class="resource-card__desc">PDF con todas las fechas de vencimientos tributarios y laborales del ano.</p>
+                        <a href="#" class="btn btn--primary btn--sm">Descargar PDF</a>
+                    </div>
+                </div>
+
+                <!-- Resource 2 -->
+                <div class="resource-card">
+                    <div class="resource-card__icon resource-card__icon--red">
+                        <svg width="28" height="28" fill="none" stroke="white" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                    </div>
+                    <div class="resource-card__body">
+                        <p class="resource-card__format">Excel &mdash; Gratuito</p>
+                        <h3 class="resource-card__title">Plantilla de Flujo de Caja</h3>
+                        <p class="resource-card__desc">Plantilla Excel para proyectar tu flujo de caja mensual.</p>
+                        <a href="#" class="btn btn--primary btn--sm">Descargar Excel</a>
+                    </div>
+                </div>
+
+                <!-- Resource 3 -->
+                <div class="resource-card">
+                    <div class="resource-card__icon resource-card__icon--navy">
+                        <svg width="28" height="28" fill="none" stroke="white" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                        </svg>
+                    </div>
+                    <div class="resource-card__body">
+                        <p class="resource-card__format">PDF &mdash; Gratuito</p>
+                        <h3 class="resource-card__title">Checklist: Cierre Contable Mensual</h3>
+                        <p class="resource-card__desc">Lista verificable con todos los pasos del cierre contable.</p>
+                        <a href="#" class="btn btn--primary btn--sm">Descargar PDF</a>
+                    </div>
+                </div>
+
+                <!-- Resource 4 -->
+                <div class="resource-card">
+                    <div class="resource-card__icon resource-card__icon--red">
+                        <svg width="28" height="28" fill="none" stroke="white" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        </svg>
+                    </div>
+                    <div class="resource-card__body">
+                        <p class="resource-card__format">PDF &mdash; Gratuito</p>
+                        <h3 class="resource-card__title">Guia: Obligaciones Laborales 2026</h3>
+                        <p class="resource-card__desc">Guia completa sobre legislacion laboral actualizada.</p>
+                        <a href="#" class="btn btn--primary btn--sm">Descargar PDF</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="section section--dark">
+        <div class="container">
+            <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+                <span style="display: inline-flex; align-items: center; gap: var(--spacing-2); font-size: var(--text-sm); font-weight: var(--font-semibold); color: rgba(188,26,4,0.8); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: var(--spacing-3);">
+                    <span style="display: block; width: 20px; height: 2px; background: rgba(188,26,4,0.8); border-radius: 2px;"></span>
+                    Newsletter
+                </span>
+                <h2 style="margin-bottom: var(--spacing-4);">Subscríbete a Nuestro Newsletter</h2>
+                <p style="margin-bottom: var(--spacing-8); font-size: var(--text-lg); color: var(--color-gray-200); line-height: 1.7;">
+                    Recibe actualizaciones tributarias, tips financieros y recursos exclusivos directamente en tu email.
+                </p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="tu@email.com" required autocomplete="email">
+                    <button type="submit" class="btn btn--primary btn--lg">Suscribirme</button>
+                </form>
+                <p style="margin-top: var(--spacing-4); font-size: var(--text-sm); color: var(--color-gray-400);">
+                    No spam. Solo contenido de valor. Puedes cancelar en cualquier momento.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__section">
+                    <img src="Logotipo/Logo Masferrer & Partners - Horizontal SS.svg" alt="Masferrer &amp; Partners"
+                        style="height: 60px; margin-bottom: var(--spacing-4); filter: brightness(0) invert(1);">
+                    <p style="color: var(--color-gray-300); margin-bottom: var(--spacing-4);">
+                        Outsourcing contable, financiero, tributario y laboral de excelencia para empresas que buscan crecer.
+                    </p>
+                    <div style="display: flex; gap: var(--spacing-4);">
+                        <a href="#" aria-label="LinkedIn" style="color: var(--color-gray-300); transition: color var(--transition-base);">
+                            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="#" aria-label="Instagram" style="color: var(--color-gray-300); transition: color var(--transition-base);">
+                            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer__section">
+                    <h4>Servicios</h4>
+                    <ul class="footer__links">
+                        <li><a href="servicios.html#contable" class="footer__link">Outsourcing Contable</a></li>
+                        <li><a href="servicios.html#financiero" class="footer__link">Outsourcing Financiero</a></li>
+                        <li><a href="servicios.html#tributario" class="footer__link">Outsourcing Tributario</a></li>
+                        <li><a href="servicios.html#laboral" class="footer__link">Outsourcing Laboral</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__section">
+                    <h4>Empresa</h4>
+                    <ul class="footer__links">
+                        <li><a href="nosotros.html" class="footer__link">Nosotros</a></li>
+                        <li><a href="recursos.html" class="footer__link">Recursos</a></li>
+                        <li><a href="faq.html" class="footer__link">Preguntas Frecuentes</a></li>
+                        <li><a href="contacto.html" class="footer__link">Contacto</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__section">
+                    <h4>Contacto</h4>
+                    <ul class="footer__links">
+                        <li style="color: var(--color-gray-300); margin-bottom: var(--spacing-3);">Direccion Placeholder<br>Santiago, Chile</li>
+                        <li style="color: var(--color-gray-300); margin-bottom: var(--spacing-3);"><a href="tel:+56912345678" class="footer__link">+56 9 1234 5678</a></li>
+                        <li style="color: var(--color-gray-300); margin-bottom: var(--spacing-3);"><a href="mailto:contacto@masferrer.cl" class="footer__link">contacto@masferrer.cl</a></li>
+                        <li style="color: var(--color-gray-300);">Lun - Vie: 9:00 - 18:00</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer__bottom">
+                <p>&copy; 2026 Masferrer &amp; Partners. Todos los derechos reservados.</p>
+                <p style="margin-top: var(--spacing-2);">
+                    <a href="#" class="footer__link">Politica de Privacidad</a> |
+                    <a href="#" class="footer__link">Terminos y Condiciones</a> |
+                    <a href="#" class="footer__link">Aviso Legal</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
