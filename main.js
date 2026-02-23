@@ -19,6 +19,17 @@ document.addEventListener('DOMContentLoaded', function () {
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger);
         initGSAPAnimations();
+
+        // Safety net: ensure animated elements become visible
+        setTimeout(() => {
+            document.querySelectorAll('.benefit-card, .service-card, .sector-card, .hero-service-card, .cta-form-card, .footer__brand').forEach(el => {
+                const style = window.getComputedStyle(el);
+                if (parseFloat(style.opacity) < 0.1) {
+                    gsap.set(el, { opacity: 1, y: 0, x: 0, clearProps: 'all' });
+                }
+            });
+            ScrollTrigger.refresh();
+        }, 2500);
     } else {
         // Fallback: mark body so CSS-only reveals work
         document.body.classList.add('no-gsap');
@@ -247,6 +258,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 delay: (index % 4) * 0.1
             });
         });
+
+        // Force ScrollTrigger to recalculate positions
+        ScrollTrigger.refresh();
     }
 
 

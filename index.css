@@ -1359,6 +1359,32 @@ body.no-gsap .reveal-card.is-visible {
         grid-template-columns: 1fr;
     }
 
+    .sector-card__number {
+        font-size: 2.5rem;
+        top: var(--sp-4);
+        right: var(--sp-4);
+    }
+
+    .sector-card__icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .sector-card__icon i {
+        width: 22px;
+        height: 22px;
+    }
+
+    .benefit-card__icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .benefit-card__icon i {
+        width: 22px;
+        height: 22px;
+    }
+
     .footer__grid {
         grid-template-columns: 1fr;
         gap: var(--sp-8);
@@ -1379,6 +1405,46 @@ body.no-gsap .reveal-card.is-visible {
     }
 }
 
+@media (max-width: 640px) {
+    .sector-card {
+        padding: var(--sp-6);
+    }
+
+    .sector-card__number {
+        font-size: 2rem;
+    }
+
+    .sector-card__title {
+        font-size: 1.125rem;
+    }
+
+    .service-card {
+        padding: var(--sp-6);
+    }
+
+    .benefit-card {
+        padding: var(--sp-5);
+    }
+
+    .benefit-card__icon {
+        width: 44px;
+        height: 44px;
+    }
+
+    .benefit-card__icon i {
+        width: 20px;
+        height: 20px;
+    }
+
+    .cta-title {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+    }
+
+    .cta-subtitle {
+        font-size: 0.9375rem;
+    }
+}
+
 @media (max-width: 480px) {
     .btn-cta {
         width: 100%;
@@ -1387,5 +1453,29 @@ body.no-gsap .reveal-card.is-visible {
 
     .cta-actions {
         flex-direction: column;
+    }
+
+    .sector-card__number {
+        font-size: 1.5rem;
+    }
+
+    .sector-card__icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .sector-card__icon i {
+        width: 18px;
+        height: 18px;
+    }
+
+    .benefit-card__icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .benefit-card__icon i {
+        width: 18px;
+        height: 18px;
     }
 }
