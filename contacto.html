@@ -148,12 +148,18 @@
             gap: var(--spacing-4);
             background: var(--color-white);
             border: 1px solid var(--color-gray-200);
+            border-left: 3px solid transparent;
             border-radius: var(--radius-xl);
             padding: var(--spacing-5) var(--spacing-6);
             box-shadow: var(--shadow-sm);
-            transition: box-shadow var(--transition-base);
+            text-decoration: none;
+            transition: box-shadow var(--transition-base), border-left-color var(--transition-base), transform var(--transition-base);
         }
-        .contact-card:hover { box-shadow: var(--shadow-md); }
+        .contact-card:hover {
+            box-shadow: var(--shadow-md);
+            border-left-color: var(--color-primary);
+            transform: translateY(-1px);
+        }
         .contact-card__icon {
             width: 48px; height: 48px;
             border-radius: var(--radius-base);
@@ -161,6 +167,7 @@
         }
         .contact-card__icon--navy { background: var(--color-primary); }
         .contact-card__icon--red { background: var(--color-accent); }
+        .contact-card__icon--whatsapp { background: #25D366; }
         .contact-card__title {
             font-size: var(--text-base);
             font-weight: var(--font-semibold);
@@ -185,57 +192,34 @@
             margin: var(--spacing-1) 0 0;
         }
 
-        /* WhatsApp card */
-        .whatsapp-card {
-            display: flex;
-            align-items: flex-start;
-            gap: var(--spacing-4);
-            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-            border-radius: var(--radius-xl);
-            padding: var(--spacing-5) var(--spacing-6);
-            box-shadow: var(--shadow-sm);
-            text-decoration: none;
-            transition: opacity var(--transition-base), transform var(--transition-base);
-        }
-        .whatsapp-card:hover { opacity: 0.92; transform: translateY(-1px); }
-        .whatsapp-card__icon {
-            width: 48px; height: 48px;
-            background: rgba(255,255,255,0.2);
-            border-radius: var(--radius-base);
-            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-        }
-        .whatsapp-card__title {
-            font-size: var(--text-base);
-            font-weight: var(--font-semibold);
-            color: white;
-            margin-bottom: var(--spacing-1);
-        }
-        .whatsapp-card__sub { font-size: var(--text-sm); color: rgba(255,255,255,0.85); margin: 0; }
-        .whatsapp-card__detail { font-size: var(--text-sm); font-weight: var(--font-medium); color: white; margin: 0; }
+        /* WhatsApp card hover accent */
+        .contact-card--whatsapp:hover { border-left-color: #25D366; }
 
         /* Social links card */
         .social-card {
-            background: var(--color-white);
+            background: var(--color-gray-50, #f8f9fa);
             border: 1px solid var(--color-gray-200);
             border-radius: var(--radius-xl);
-            padding: var(--spacing-5) var(--spacing-6);
+            padding: var(--spacing-4) var(--spacing-6);
             text-align: center;
-            box-shadow: var(--shadow-sm);
         }
         .social-card__title {
-            font-size: var(--text-sm);
+            font-size: var(--text-xs);
             font-weight: var(--font-semibold);
-            color: var(--color-gray-700);
-            margin-bottom: var(--spacing-4);
+            color: var(--color-gray-400);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: var(--spacing-3);
         }
         .social-links { display: flex; gap: var(--spacing-3); justify-content: center; }
         .social-link {
-            width: 44px; height: 44px;
+            width: 36px; height: 36px;
             border-radius: var(--radius-base);
             display: flex; align-items: center; justify-content: center;
             transition: transform var(--transition-base), opacity var(--transition-base);
+            opacity: 0.75;
         }
-        .social-link:hover { transform: scale(1.08); opacity: 0.9; }
+        .social-link:hover { transform: scale(1.1); opacity: 1; }
         .social-link--linkedin { background: var(--color-primary); }
         .social-link--instagram { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
 
@@ -263,12 +247,60 @@
             <nav class="header__nav" id="nav" aria-label="Navegación principal">
                 <ul class="nav__list">
                     <li><a href="index.html" class="nav__link">Inicio</a></li>
-                    <li><a href="servicios.html" class="nav__link">Servicios</a></li>
+                    <li class="nav__dropdown">
+                        <a href="servicios.html" class="nav__link" aria-haspopup="true" aria-expanded="false">
+                            Servicios
+                            <svg class="nav__dropdown-chevron" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                        </a>
+                        <div class="nav__dropdown-menu" role="menu">
+                            <a href="servicio-contable.html" class="nav__dropdown-item" role="menuitem">
+                                <span class="nav__dropdown-item__icon">
+                                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="16" y1="18" x2="16" y2="18.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="8" y1="18" x2="8" y2="18.01"/></svg>
+                                </span>
+                                <span class="nav__dropdown-item__text">
+                                    <span class="nav__dropdown-item__name">Outsourcing Contable</span>
+                                    <span class="nav__dropdown-item__desc">Registros y estados financieros</span>
+                                </span>
+                            </a>
+                            <a href="servicio-financiero.html" class="nav__dropdown-item" role="menuitem">
+                                <span class="nav__dropdown-item__icon">
+                                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                                </span>
+                                <span class="nav__dropdown-item__text">
+                                    <span class="nav__dropdown-item__name">Outsourcing Financiero</span>
+                                    <span class="nav__dropdown-item__desc">Análisis y planificación estratégica</span>
+                                </span>
+                            </a>
+                            <a href="servicio-tributario.html" class="nav__dropdown-item" role="menuitem">
+                                <span class="nav__dropdown-item__icon">
+                                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                                </span>
+                                <span class="nav__dropdown-item__text">
+                                    <span class="nav__dropdown-item__name">Outsourcing Tributario</span>
+                                    <span class="nav__dropdown-item__desc">Cumplimiento y planificación fiscal</span>
+                                </span>
+                            </a>
+                            <a href="servicio-laboral.html" class="nav__dropdown-item" role="menuitem">
+                                <span class="nav__dropdown-item__icon">
+                                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                </span>
+                                <span class="nav__dropdown-item__text">
+                                    <span class="nav__dropdown-item__name">Outsourcing Laboral</span>
+                                    <span class="nav__dropdown-item__desc">Nómina y gestión de personas</span>
+                                </span>
+                            </a>
+                            <div class="nav__dropdown-divider" role="separator"></div>
+                            <a href="servicios.html" class="nav__dropdown-all" role="menuitem">
+                                Ver todos los servicios
+                                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </a>
+                        </div>
+                    </li>
                     <li><a href="nosotros.html" class="nav__link">Nosotros</a></li>
                     <li><a href="contacto.html" class="nav__link nav__link--active">Contacto</a></li>
                     <li>
                         <a href="contacto.html#agendar" class="nav__cta">
-                            <i data-lucide="calendar"></i>
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                             <span>Agenda una Reunión</span>
                         </a>
                     </li>
@@ -425,16 +457,17 @@
                         </div>
 
                         <!-- WhatsApp -->
-                        <a href="https://wa.me/56912345678" target="_blank" rel="noopener noreferrer" class="whatsapp-card">
-                            <div class="whatsapp-card__icon">
-                                <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+                        <a href="https://wa.me/56912345678" target="_blank" rel="noopener noreferrer"
+                           class="contact-card contact-card--whatsapp">
+                            <div class="contact-card__icon contact-card__icon--whatsapp">
+                                <svg width="22" height="22" fill="white" viewBox="0 0 24 24" aria-hidden="true">
                                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                                 </svg>
                             </div>
                             <div>
-                                <p class="whatsapp-card__title">WhatsApp</p>
-                                <p class="whatsapp-card__detail">+56 9 1234 5678</p>
-                                <p class="whatsapp-card__sub">Chatea con nosotros ahora</p>
+                                <p class="contact-card__title">WhatsApp</p>
+                                <p class="contact-card__detail">+56 9 1234 5678</p>
+                                <p class="contact-card__sub">Respuesta inmediata</p>
                             </div>
                         </a>
 
@@ -524,19 +557,19 @@
                     <h4 class="footer__col-title">Contacto</h4>
                     <ul class="footer__contact">
                         <li class="footer__contact-item">
-                            <i data-lucide="map-pin" class="footer__contact-icon" aria-hidden="true"></i>
+                            <svg class="footer__contact-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                             <span>Dirección Placeholder<br>Santiago, Chile</span>
                         </li>
                         <li class="footer__contact-item">
-                            <i data-lucide="phone" class="footer__contact-icon" aria-hidden="true"></i>
+                            <svg class="footer__contact-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                             <a href="tel:+56912345678" class="footer__link">+56 9 1234 5678</a>
                         </li>
                         <li class="footer__contact-item">
-                            <i data-lucide="mail" class="footer__contact-icon" aria-hidden="true"></i>
+                            <svg class="footer__contact-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                             <a href="mailto:contacto@masferrer.cl" class="footer__link">contacto@masferrer.cl</a>
                         </li>
                         <li class="footer__contact-item">
-                            <i data-lucide="clock" class="footer__contact-icon" aria-hidden="true"></i>
+                            <svg class="footer__contact-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                             <span>Lun - Vie: 9:00 - 18:00</span>
                         </li>
                     </ul>
@@ -555,7 +588,6 @@
         </div>
     </footer>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="main.js"></script>
 </body>
 

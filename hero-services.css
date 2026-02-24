@@ -8,12 +8,12 @@
    ============================================================ */
 .hero {
     position: relative;
-    min-height: 100svh;
+    min-height: calc(100svh - 80px);
     display: flex;
     align-items: center;
     background: var(--color-primary-dark, #071a2a);
     overflow: hidden;
-    padding: 120px 0 80px;
+    padding: 20px 0 40px;
 }
 
 /* ============================================================
@@ -26,15 +26,45 @@
     z-index: 0;
 }
 
-/* Grid pattern overlay */
-.hero__bg-grid {
+/* Slow-shifting diagonal color wash — adds warmth/depth cycles */
+.hero__bg::before {
+    content: '';
     position: absolute;
     inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(188, 26, 4, 0.06)   0%,
+        rgba(7, 26, 42, 0)        35%,
+        rgba(26, 58, 92, 0.07)    65%,
+        rgba(7, 26, 42, 0)       100%
+    );
+    background-size: 300% 300%;
+    animation: gradient-shift 22s ease-in-out infinite alternate;
+    z-index: 0;
+}
+
+@keyframes gradient-shift {
+    0%   { background-position: 0%   0%;   }
+    33%  { background-position: 100% 0%;   }
+    66%  { background-position: 100% 100%; }
+    100% { background-position: 0%   100%; }
+}
+
+/* Grid pattern overlay — slow diagonal drift */
+.hero__bg-grid {
+    position: absolute;
+    inset: -60px; /* oversized so drift doesn't expose edges */
     background-image:
         linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
     background-size: 60px 60px;
     mask-image: radial-gradient(ellipse 80% 70% at 60% 40%, black 20%, transparent 100%);
+    animation: grid-drift 28s linear infinite;
+}
+
+@keyframes grid-drift {
+    0%   { background-position: 0 0; }
+    100% { background-position: 60px 60px; }
 }
 
 /* Glowing orbs */
@@ -42,7 +72,7 @@
     position: absolute;
     border-radius: 50%;
     filter: blur(80px);
-    opacity: 0.35;
+    opacity: 0.45;
 }
 
 .hero__bg-orb--1 {
@@ -118,15 +148,17 @@
     font-size: 13px;
     font-weight: 500;
     color: rgba(255,255,255,.88);
-    margin-bottom: 28px;
+    margin-bottom: 20px;
     backdrop-filter: blur(10px);
     width: fit-content;
 }
 
-.hero__badge i {
+.hero__badge i,
+.hero__badge svg {
     width: 16px;
     height: 16px;
     color: var(--color-accent, #bc1a04);
+    stroke: var(--color-accent, #bc1a04);
     flex-shrink: 0;
 }
 
@@ -154,7 +186,7 @@
     font-size: 1.125rem;
     line-height: 1.75;
     color: rgba(255, 255, 255, 0.72);
-    margin-bottom: 44px;
+    margin-bottom: 36px;
     max-width: 560px;
 }
 
@@ -165,7 +197,7 @@
     display: flex;
     gap: 16px;
     flex-wrap: wrap;
-    margin-bottom: 56px;
+    margin-bottom: 40px;
 }
 
 .btn-hero {
@@ -188,7 +220,8 @@
     letter-spacing: -0.01em;
 }
 
-.btn-hero i {
+.btn-hero i,
+.btn-hero svg {
     width: 20px;
     height: 20px;
     flex-shrink: 0;
@@ -241,7 +274,8 @@
     transform: translateY(-3px);
 }
 
-.btn-hero--ghost:hover i {
+.btn-hero--ghost:hover i,
+.btn-hero--ghost:hover svg {
     transform: translateX(4px);
 }
 
@@ -250,46 +284,73 @@
    ============================================================ */
 .hero__metrics {
     display: flex;
-    align-items: center;
-    gap: 32px;
-    padding-top: 32px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    align-items: stretch;
+    gap: 16px;
+    padding-top: 36px;
     flex-wrap: wrap;
 }
 
 .hero-metric {
-    flex-shrink: 0;
+    flex: 1;
+    min-width: 120px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 20px 22px;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-metric::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-accent, #bc1a04), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.hero-metric:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.18);
+    transform: translateY(-2px);
+}
+
+.hero-metric:hover::before {
+    opacity: 1;
 }
 
 .hero-metric__number {
     display: block;
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 800;
     color: var(--color-white, #fff);
     line-height: 1;
     letter-spacing: -0.04em;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 }
 
 .hero-metric__number span {
-    font-size: 1.25rem;
-    color: var(--color-accent, #bc1a04);
+    font-size: 1.5rem;
+    color: var(--color-accent-light, #d62515);
     font-weight: 700;
 }
 
 .hero-metric__label {
     display: block;
     font-size: 0.8125rem;
-    color: rgba(255, 255, 255, 0.55);
+    color: rgba(255, 255, 255, 0.6);
     line-height: 1.4;
-    max-width: 120px;
+    font-weight: 500;
 }
 
 .hero-metric__divider {
-    width: 1px;
-    height: 44px;
-    background: rgba(255, 255, 255, 0.12);
-    flex-shrink: 0;
+    display: none;
 }
 
 /* ============================================================
@@ -344,30 +405,32 @@
 
 /* Icon */
 .hero-service-card__icon {
-    width: 44px;
-    height: 44px;
-    background: linear-gradient(135deg, var(--color-accent, #bc1a04), var(--color-accent-dark, #8f1403));
-    border-radius: 10px;
+    width: 46px;
+    height: 46px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 14px;
     transition: all 0.3s ease;
     flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(188, 26, 4, 0.3);
 }
 
 .hero-service-card:hover .hero-service-card__icon {
-    background: linear-gradient(135deg, var(--color-accent-light, #d62515), var(--color-accent, #bc1a04));
-    transform: scale(1.08);
-    box-shadow: 0 6px 18px rgba(188, 26, 4, 0.4);
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.28);
+    transform: scale(1.06);
 }
 
-.hero-service-card__icon i {
+.hero-service-card__icon i,
+.hero-service-card__icon svg {
     width: 22px;
     height: 22px;
     color: var(--color-white, #fff);
     stroke-width: 1.75;
+    transition: color 0.3s ease;
 }
 
 /* Body */
@@ -408,6 +471,49 @@
 }
 
 /* ============================================================
+   SCROLL INDICATOR
+   ============================================================ */
+.hero__scroll {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    z-index: 2;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.hero__scroll:hover {
+    opacity: 1;
+}
+
+.hero__scroll-text {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.hero__scroll-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.7);
+    animation: scroll-bounce 2s ease-in-out infinite;
+}
+
+@keyframes scroll-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+}
+
+/* ============================================================
    HERO ANIMATIONS (GSAP targets these; CSS fallback)
    ============================================================ */
 .hero__badge,
@@ -433,7 +539,7 @@
 
 @media (max-width: 1024px) {
     .hero {
-        padding: 100px 0 80px;
+        padding: 20px 0 64px;
         min-height: auto;
     }
 
@@ -463,7 +569,6 @@
 
     .hero__metrics {
         justify-content: center;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .hero__services {
@@ -478,7 +583,7 @@
 
 @media (max-width: 640px) {
     .hero {
-        padding: 88px 0 64px;
+        padding: 16px 0 48px;
     }
 
     .hero__title {
@@ -500,15 +605,20 @@
     }
 
     .hero__metrics {
-        gap: 20px;
+        gap: 10px;
     }
 
-    .hero-metric__divider {
-        display: none;
+    .hero-metric {
+        padding: 14px 16px;
+        min-width: 0;
     }
 
     .hero-metric__number {
-        font-size: 1.625rem;
+        font-size: 1.75rem;
+    }
+
+    .hero-metric__number span {
+        font-size: 1.125rem;
     }
 
     .hero__services {

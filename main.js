@@ -297,7 +297,9 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.appendChild(navOverlay);
     }
 
+    // Declared at this scope so the dropdown IIFE (section 5) can call closeNav
     function openNav() {
+        if (!nav || !navToggle) return;
         nav.classList.add('active');
         navToggle.classList.add('active');
         navOverlay.classList.add('active');
@@ -306,6 +308,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function closeNav() {
+        if (!nav || !navToggle) return;
         nav.classList.remove('active');
         navToggle.classList.remove('active');
         navOverlay.classList.remove('active');
@@ -322,8 +325,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // Close on nav link click
-        nav.querySelectorAll('.nav__link, .nav__cta').forEach(link => {
+        // Close on nav link click (exclude dropdown trigger — handled by dropdown logic)
+        nav.querySelectorAll('.nav__link:not(.nav__dropdown > .nav__link), .nav__cta').forEach(link => {
             link.addEventListener('click', closeNav);
         });
 
@@ -341,17 +344,125 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // ==========================================
-    // 5. ACTIVE NAV LINK (auto-detect page)
+    // 5. SERVICIOS DROPDOWN
+    // ==========================================
+    (function initServiciosDropdown() {
+        const dropdown = document.querySelector('.nav__dropdown');
+        if (!dropdown) return;
+
+        const menu    = dropdown.querySelector('.nav__dropdown-menu');
+        const trigger = dropdown.querySelector('.nav__link');
+        if (!menu || !trigger) return;
+
+        let openTimer  = null;
+        let closeTimer = null;
+        const DELAY    = 150; // ms
+
+        // Detect mobile breakpoint
+        const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+
+        // ---- Desktop: hover behaviour ----
+        function openDropdown() {
+            clearTimeout(closeTimer);
+            openTimer = setTimeout(() => {
+                dropdown.classList.add('is-open');
+                trigger.setAttribute('aria-expanded', 'true');
+            }, DELAY);
+        }
+
+        function closeDropdown() {
+            clearTimeout(openTimer);
+            closeTimer = setTimeout(() => {
+                dropdown.classList.remove('is-open');
+                trigger.setAttribute('aria-expanded', 'false');
+            }, DELAY);
+        }
+
+        dropdown.addEventListener('mouseenter', () => {
+            if (!isMobile()) openDropdown();
+        });
+
+        dropdown.addEventListener('mouseleave', () => {
+            if (!isMobile()) closeDropdown();
+        });
+
+        // Keep open when moving cursor into the menu itself
+        menu.addEventListener('mouseenter', () => {
+            if (!isMobile()) clearTimeout(closeTimer);
+        });
+
+        menu.addEventListener('mouseleave', () => {
+            if (!isMobile()) closeDropdown();
+        });
+
+        // ---- Mobile: click-toggle behaviour ----
+        trigger.addEventListener('click', function (e) {
+            if (!isMobile()) {
+                // On desktop the link still navigates — allow default
+                return;
+            }
+            // On mobile: prevent navigation, toggle submenu instead
+            e.preventDefault();
+            e.stopPropagation();
+
+            const isOpen = dropdown.classList.contains('is-open');
+            dropdown.classList.toggle('is-open', !isOpen);
+            trigger.setAttribute('aria-expanded', String(!isOpen));
+        });
+
+        // Close dropdown when a sub-item link is clicked on mobile
+        menu.querySelectorAll('.nav__dropdown-item, .nav__dropdown-all').forEach(link => {
+            link.addEventListener('click', () => {
+                dropdown.classList.remove('is-open');
+                trigger.setAttribute('aria-expanded', 'false');
+                // Also close the whole drawer
+                if (typeof closeNav === 'function') closeNav();
+            });
+        });
+
+        // Close on ESC
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                dropdown.classList.remove('is-open');
+                trigger.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('is-open');
+                trigger.setAttribute('aria-expanded', 'false');
+            }
+        });
+    })();
+
+
+    // ==========================================
+    // 6. ACTIVE NAV LINK (auto-detect page)
     // ==========================================
     (function setActiveNavLink() {
         const currentPage = window.location.pathname.split('/').pop() || 'index.html';
         const navLinks = document.querySelectorAll('.nav__link');
 
+        // Service sub-pages that should mark "Servicios" as active
+        const serviciosPages = [
+            'servicios.html',
+            'servicio-contable.html',
+            'servicio-financiero.html',
+            'servicio-tributario.html',
+            'servicio-laboral.html'
+        ];
+
         navLinks.forEach(link => {
             const href = link.getAttribute('href');
             if (!href) return;
             const linkPage = href.split('#')[0].split('/').pop();
+
             if (linkPage === currentPage || (currentPage === '' && linkPage === 'index.html')) {
+                link.classList.add('nav__link--active');
+            } else if (linkPage === 'servicios.html' && serviciosPages.includes(currentPage)) {
+                // Mark parent Servicios link active on all service sub-pages
                 link.classList.add('nav__link--active');
             } else {
                 link.classList.remove('nav__link--active');

@@ -241,12 +241,60 @@
             <nav class="header__nav" id="nav" aria-label="Navegación principal">
                 <ul class="nav__list">
                     <li><a href="index.html" class="nav__link">Inicio</a></li>
-                    <li><a href="servicios.html" class="nav__link">Servicios</a></li>
+                    <li class="nav__dropdown">
+                        <a href="servicios.html" class="nav__link" aria-haspopup="true" aria-expanded="false">
+                            Servicios
+                            <svg class="nav__dropdown-chevron" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                        </a>
+                        <div class="nav__dropdown-menu" role="menu">
+                            <a href="servicio-contable.html" class="nav__dropdown-item" role="menuitem">
+                                <span class="nav__dropdown-item__icon">
+                                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="16" y1="18" x2="16" y2="18.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="8" y1="18" x2="8" y2="18.01"/></svg>
+                                </span>
+                                <span class="nav__dropdown-item__text">
+                                    <span class="nav__dropdown-item__name">Outsourcing Contable</span>
+                                    <span class="nav__dropdown-item__desc">Registros y estados financieros</span>
+                                </span>
+                            </a>
+                            <a href="servicio-financiero.html" class="nav__dropdown-item" role="menuitem">
+                                <span class="nav__dropdown-item__icon">
+                                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                                </span>
+                                <span class="nav__dropdown-item__text">
+                                    <span class="nav__dropdown-item__name">Outsourcing Financiero</span>
+                                    <span class="nav__dropdown-item__desc">Análisis y planificación estratégica</span>
+                                </span>
+                            </a>
+                            <a href="servicio-tributario.html" class="nav__dropdown-item" role="menuitem">
+                                <span class="nav__dropdown-item__icon">
+                                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                                </span>
+                                <span class="nav__dropdown-item__text">
+                                    <span class="nav__dropdown-item__name">Outsourcing Tributario</span>
+                                    <span class="nav__dropdown-item__desc">Cumplimiento y planificación fiscal</span>
+                                </span>
+                            </a>
+                            <a href="servicio-laboral.html" class="nav__dropdown-item" role="menuitem">
+                                <span class="nav__dropdown-item__icon">
+                                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                </span>
+                                <span class="nav__dropdown-item__text">
+                                    <span class="nav__dropdown-item__name">Outsourcing Laboral</span>
+                                    <span class="nav__dropdown-item__desc">Nómina y gestión de personas</span>
+                                </span>
+                            </a>
+                            <div class="nav__dropdown-divider" role="separator"></div>
+                            <a href="servicios.html" class="nav__dropdown-all" role="menuitem">
+                                Ver todos los servicios
+                                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </a>
+                        </div>
+                    </li>
                     <li><a href="nosotros.html" class="nav__link">Nosotros</a></li>
                     <li><a href="contacto.html" class="nav__link">Contacto</a></li>
                     <li>
                         <a href="contacto.html#agendar" class="nav__cta">
-                            <i data-lucide="calendar"></i>
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                             <span>Agenda una Reunión</span>
                         </a>
                     </li>
@@ -574,19 +622,19 @@
                     <h4 class="footer__col-title">Contacto</h4>
                     <ul class="footer__contact">
                         <li class="footer__contact-item">
-                            <i data-lucide="map-pin" class="footer__contact-icon" aria-hidden="true"></i>
+                            <svg class="footer__contact-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                             <span>Dirección Placeholder<br>Santiago, Chile</span>
                         </li>
                         <li class="footer__contact-item">
-                            <i data-lucide="phone" class="footer__contact-icon" aria-hidden="true"></i>
+                            <svg class="footer__contact-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                             <a href="tel:+56912345678" class="footer__link">+56 9 1234 5678</a>
                         </li>
                         <li class="footer__contact-item">
-                            <i data-lucide="mail" class="footer__contact-icon" aria-hidden="true"></i>
+                            <svg class="footer__contact-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                             <a href="mailto:contacto@masferrer.cl" class="footer__link">contacto@masferrer.cl</a>
                         </li>
                         <li class="footer__contact-item">
-                            <i data-lucide="clock" class="footer__contact-icon" aria-hidden="true"></i>
+                            <svg class="footer__contact-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                             <span>Lun - Vie: 9:00 - 18:00</span>
                         </li>
                     </ul>
@@ -605,7 +653,6 @@
         </div>
     </footer>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="main.js"></script>
     <script>
         function toggleFaq(id) {

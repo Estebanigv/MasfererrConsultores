@@ -23,7 +23,10 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
     <style>
-        /* Page Hero - Compact subpage version */
+        /* ============================================================
+           PAGE HERO — compact subpage version
+           (subpages.css handles responsive overrides)
+        ============================================================ */
         .page-hero {
             background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 60%, #1e4a78 100%);
             min-height: 300px;
@@ -38,11 +41,9 @@
             position: absolute;
             inset: 0;
             background: radial-gradient(ellipse at 70% 50%, rgba(188, 26, 4, 0.15) 0%, transparent 60%);
+            pointer-events: none;
         }
-        .page-hero__content {
-            position: relative;
-            z-index: 1;
-        }
+        .page-hero__content { position: relative; z-index: 1; }
         .page-hero__breadcrumb {
             display: flex;
             align-items: center;
@@ -50,12 +51,9 @@
             font-size: var(--text-sm);
             color: rgba(255,255,255,0.65);
             margin-bottom: var(--spacing-4);
+            flex-wrap: wrap;
         }
-        .page-hero__breadcrumb a {
-            color: rgba(255,255,255,0.65);
-            text-decoration: none;
-            transition: color var(--transition-base);
-        }
+        .page-hero__breadcrumb a { color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--transition-base); }
         .page-hero__breadcrumb a:hover { color: var(--color-white); }
         .page-hero__breadcrumb span { color: rgba(255,255,255,0.4); }
         .page-hero__title {
@@ -72,7 +70,37 @@
             line-height: 1.7;
         }
 
-        /* Stats row */
+        /* ============================================================
+           SECTION LABEL — red-line prefix variant
+        ============================================================ */
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-2);
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: var(--spacing-3);
+            background: transparent;
+            border: none;
+            padding: 0;
+            border-radius: 0;
+        }
+        .section-label::before {
+            content: '';
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: var(--color-accent);
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        /* ============================================================
+           STATS ROW
+        ============================================================ */
         .stats-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -92,7 +120,92 @@
             font-weight: var(--font-medium);
         }
 
-        /* Service layout alternating */
+        /* ============================================================
+           SERVICE NAV — premium tab-card style
+        ============================================================ */
+        .service-nav {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-3);
+            margin-bottom: var(--spacing-12);
+        }
+        .service-nav__link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-2);
+            padding: var(--spacing-5) var(--spacing-4);
+            border-radius: var(--radius-lg);
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-gray-600);
+            text-decoration: none;
+            border: 1.5px solid var(--color-gray-200);
+            background: var(--color-white);
+            transition: all 0.22s var(--ease-out);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .service-nav__link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--color-accent);
+            transform: scaleX(0);
+            transition: transform 0.22s var(--ease-out);
+        }
+        .service-nav__link:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            background: var(--color-gray-50);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+        .service-nav__link:hover::after,
+        .service-nav__link--active::after { transform: scaleX(1); }
+        .service-nav__link--active {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            background: var(--color-gray-50);
+            box-shadow: var(--shadow-sm);
+        }
+        .service-nav__icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-base);
+            background: var(--color-gray-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.22s var(--ease-out);
+            flex-shrink: 0;
+        }
+        .service-nav__link:hover .service-nav__icon,
+        .service-nav__link--active .service-nav__icon {
+            background: var(--color-primary);
+        }
+        .service-nav__icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--color-gray-500);
+            transition: stroke 0.22s var(--ease-out);
+        }
+        .service-nav__link:hover .service-nav__icon svg,
+        .service-nav__link--active .service-nav__icon svg { stroke: var(--color-white); }
+        .service-nav__num {
+            font-size: var(--text-xs);
+            font-weight: var(--font-bold);
+            color: var(--color-accent);
+            letter-spacing: 0.05em;
+        }
+
+        /* ============================================================
+           SERVICE LAYOUT — alternating two-column
+        ============================================================ */
         .service-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -100,7 +213,9 @@
             align-items: center;
         }
 
-        /* Styled checklist */
+        /* ============================================================
+           CHECKLIST
+        ============================================================ */
         .checklist {
             list-style: none;
             padding: 0;
@@ -130,6 +245,7 @@
             height: 12px;
             stroke: white;
             stroke-width: 2.5;
+            fill: none;
         }
         .checklist__text strong {
             display: block;
@@ -142,59 +258,71 @@
             font-size: var(--text-sm);
         }
 
-        /* Benefits card - dark */
+        /* ============================================================
+           BENEFITS CARD — dark navy
+        ============================================================ */
         .benefits-card {
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
-            color: var(--color-white);
+            background: var(--color-white);
             border-radius: var(--radius-xl);
-            padding: var(--spacing-10);
+            padding: var(--spacing-8);
+            border: 1px solid var(--color-gray-200);
+            box-shadow: var(--shadow-md);
         }
         .benefits-card__title {
-            color: var(--color-white);
             font-size: var(--text-xl);
             font-weight: var(--font-bold);
+            color: var(--color-primary);
             margin-bottom: var(--spacing-6);
         }
-        .benefits-list {
-            list-style: none;
-            padding: 0;
-        }
+        .benefits-list { list-style: none; padding: 0; }
         .benefits-list__item {
             display: flex;
             align-items: flex-start;
             gap: var(--spacing-4);
-            margin-bottom: var(--spacing-6);
+            margin-bottom: var(--spacing-5);
+            padding-bottom: var(--spacing-5);
+            border-bottom: 1px solid var(--color-gray-100);
         }
-        .benefits-list__item:last-child { margin-bottom: 0; }
+        .benefits-list__item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .benefits-list__icon {
-            width: 40px;
-            height: 40px;
-            background: rgba(188, 26, 4, 0.25);
+            width: 44px;
+            height: 44px;
+            background: var(--color-gray-50);
+            border: 1px solid var(--color-gray-200);
             border-radius: var(--radius-base);
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
         }
-        .benefits-list__icon svg { color: #f87171; }
+        .benefits-list__icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: var(--color-accent, #bc1a04);
+            fill: none;
+        }
         .benefits-list__body strong {
             display: block;
-            color: var(--color-white);
+            color: var(--color-primary);
             font-weight: var(--font-semibold);
-            margin-bottom: var(--spacing-1);
+            margin-bottom: 2px;
+            font-size: var(--text-base);
         }
         .benefits-list__body span {
-            color: rgba(255,255,255,0.8);
+            color: var(--color-gray-600);
             font-size: var(--text-sm);
             line-height: 1.5;
         }
 
-        /* Ideal for card */
+        /* ============================================================
+           IDEAL-FOR CARD
+        ============================================================ */
         .ideal-card {
-            background: var(--color-gray-50);
+            background: var(--color-white);
             border-radius: var(--radius-xl);
             padding: var(--spacing-8);
             border: 1px solid var(--color-gray-200);
+            box-shadow: var(--shadow-md);
         }
         .ideal-card__title {
             font-size: var(--text-xl);
@@ -202,98 +330,140 @@
             color: var(--color-primary);
             margin-bottom: var(--spacing-6);
         }
-        .ideal-list {
-            list-style: none;
-            padding: 0;
-        }
+        .ideal-list { list-style: none; padding: 0; }
         .ideal-list__item {
             display: flex;
             align-items: flex-start;
-            gap: var(--spacing-3);
+            gap: var(--spacing-4);
             margin-bottom: var(--spacing-5);
             padding-bottom: var(--spacing-5);
-            border-bottom: 1px solid var(--color-gray-200);
+            border-bottom: 1px solid var(--color-gray-100);
         }
         .ideal-list__item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .ideal-list__emoji {
-            width: 40px;
-            height: 40px;
-            background: var(--color-white);
+        .ideal-list__icon {
+            width: 44px;
+            height: 44px;
+            background: var(--color-gray-50);
+            border: 1px solid var(--color-gray-200);
             border-radius: var(--radius-base);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: var(--text-xl);
             flex-shrink: 0;
-            box-shadow: var(--shadow-sm);
+        }
+        .ideal-list__icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: var(--color-primary);
+            fill: none;
         }
         .ideal-list__body strong {
             display: block;
             color: var(--color-primary);
             font-weight: var(--font-semibold);
             margin-bottom: 2px;
+            font-size: var(--text-base);
         }
-        .ideal-list__body span { color: var(--color-gray-600); font-size: var(--text-sm); }
+        .ideal-list__body span {
+            color: var(--color-gray-600);
+            font-size: var(--text-sm);
+            line-height: 1.5;
+        }
 
-        /* Alert insight card */
+        /* ============================================================
+           INSIGHT CARD
+        ============================================================ */
         .insight-card {
-            border-left: 4px solid var(--color-accent);
             background: var(--color-white);
-            border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
-            padding: var(--spacing-8);
-            box-shadow: var(--shadow-md);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-8) var(--spacing-8) var(--spacing-6);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--color-gray-200);
         }
         .insight-card__heading {
-            font-size: var(--text-lg);
+            font-size: var(--text-xs);
             font-weight: var(--font-bold);
-            color: var(--color-accent);
+            color: var(--color-accent, #bc1a04);
             margin-bottom: var(--spacing-5);
             display: flex;
             align-items: center;
             gap: var(--spacing-2);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding-bottom: var(--spacing-4);
+            border-bottom: 2px solid var(--color-accent);
         }
-        .insight-card__heading svg { width: 20px; height: 20px; }
+        .insight-card__heading svg { width: 18px; height: 18px; fill: none; flex-shrink: 0; stroke: var(--color-accent, #bc1a04); }
+        .insight-card__heading-badge {
+            display: none;
+        }
         .insight-stat {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-4);
             padding: var(--spacing-4) 0;
             border-bottom: 1px solid var(--color-gray-100);
         }
         .insight-stat:last-of-type { border-bottom: none; }
-        .insight-stat strong { color: var(--color-primary); }
-        .insight-stat p { color: var(--color-gray-600); font-size: var(--text-sm); margin: 0; }
+        .insight-stat strong { color: var(--color-primary); font-weight: var(--font-bold); }
+        .insight-stat p { color: var(--color-gray-600); font-size: var(--text-sm); margin: 0; line-height: 1.65; flex: 1; }
+        .insight-stat__number {
+            font-size: var(--text-xl);
+            font-weight: var(--font-bold);
+            color: var(--color-accent, #bc1a04);
+            min-width: 56px;
+            flex-shrink: 0;
+            line-height: 1.3;
+        }
         .insight-quote {
-            margin-top: var(--spacing-5);
+            margin-top: var(--spacing-4);
             padding: var(--spacing-4);
             background: var(--color-gray-50);
             border-radius: var(--radius-base);
+            border-left: 3px solid var(--color-accent);
             font-style: italic;
             color: var(--color-gray-700);
             font-size: var(--text-sm);
-            line-height: 1.6;
+            line-height: 1.65;
         }
 
-        /* Labour benefits card */
+        /* ============================================================
+           LABOUR CARD — red gradient
+        ============================================================ */
         .labour-card {
-            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
+            background: linear-gradient(150deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
             color: var(--color-white);
             border-radius: var(--radius-xl);
             padding: var(--spacing-10);
+            position: relative;
+            overflow: hidden;
+        }
+        .labour-card::before {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.04);
+            pointer-events: none;
         }
         .labour-card__title {
             color: var(--color-white);
             font-size: var(--text-xl);
             font-weight: var(--font-bold);
             margin-bottom: var(--spacing-4);
+            position: relative;
         }
         .labour-card__desc {
-            color: rgba(255,255,255,0.9);
+            color: rgba(255,255,255,0.88);
             margin-bottom: var(--spacing-6);
             line-height: 1.7;
             font-size: var(--text-sm);
+            position: relative;
         }
-        .labour-checklist {
-            list-style: none;
-            padding: 0;
-        }
+        .labour-checklist { list-style: none; padding: 0; position: relative; }
         .labour-checklist__item {
             display: flex;
             align-items: center;
@@ -304,61 +474,33 @@
         }
         .labour-checklist__item:last-child { margin-bottom: 0; }
         .labour-checklist__dot {
-            width: 20px;
-            height: 20px;
-            background: rgba(255,255,255,0.2);
+            width: 22px;
+            height: 22px;
+            background: rgba(255,255,255,0.18);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
         }
-        .labour-checklist__dot svg { width: 11px; height: 11px; stroke: white; stroke-width: 2.5; }
-
-        /* Service nav tabs */
-        .service-nav {
-            display: flex;
-            gap: var(--spacing-2);
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: var(--spacing-12);
-        }
-        .service-nav__link {
-            padding: var(--spacing-2) var(--spacing-5);
-            border-radius: var(--radius-full);
-            font-size: var(--text-sm);
-            font-weight: var(--font-medium);
-            color: var(--color-gray-600);
-            text-decoration: none;
-            border: 1px solid var(--color-gray-300);
-            transition: all var(--transition-base);
-        }
-        .service-nav__link:hover,
-        .service-nav__link--active {
-            background: var(--color-primary);
-            color: var(--color-white);
-            border-color: var(--color-primary);
+        .labour-checklist__dot svg {
+            width: 12px;
+            height: 12px;
+            stroke: white;
+            stroke-width: 2.5;
+            fill: none;
         }
 
-        /* Section heading style */
-        .section-label {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--spacing-2);
-            font-size: var(--text-sm);
-            font-weight: var(--font-semibold);
-            color: var(--color-accent);
+        /* ============================================================
+           SECTION HEADING — inline utility
+        ============================================================ */
+        .checklist-heading {
+            font-size: var(--text-xs);
+            font-weight: var(--font-bold);
+            color: var(--color-gray-500);
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: var(--spacing-3);
-        }
-        .section-label::before {
-            content: '';
-            display: block;
-            width: 20px;
-            height: 2px;
-            background: var(--color-accent);
-            border-radius: 2px;
+            letter-spacing: 0.1em;
+            margin-bottom: var(--spacing-4);
         }
     </style>
 
@@ -377,12 +519,66 @@
             <nav class="header__nav" id="nav" aria-label="Navegación principal">
                 <ul class="nav__list">
                     <li><a href="index.html" class="nav__link">Inicio</a></li>
-                    <li><a href="servicios.html" class="nav__link nav__link--active">Servicios</a></li>
+                    <li class="nav__dropdown">
+                        <a href="servicios.html" class="nav__link nav__link--active" aria-haspopup="true" aria-expanded="false">
+                            Servicios
+                            <svg class="nav__dropdown-chevron" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                        </a>
+                        <div class="nav__dropdown-menu" role="menu">
+                            <a href="servicio-contable.html" class="nav__dropdown-item" role="menuitem">
+                                <span class="nav__dropdown-item__icon">
+                                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="16" y1="18" x2="16" y2="18.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="8" y1="18" x2="8" y2="18.01"/></svg>
+                                </span>
+                                <span class="nav__dropdown-item__text">
+                                    <span class="nav__dropdown-item__name">Outsourcing Contable</span>
+                                    <span class="nav__dropdown-item__desc">Registros y estados financieros</span>
+                                </span>
+                            </a>
+                            <a href="servicio-financiero.html" class="nav__dropdown-item" role="menuitem">
+                                <span class="nav__dropdown-item__icon">
+                                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                                </span>
+                                <span class="nav__dropdown-item__text">
+                                    <span class="nav__dropdown-item__name">Outsourcing Financiero</span>
+                                    <span class="nav__dropdown-item__desc">Análisis y planificación estratégica</span>
+                                </span>
+                            </a>
+                            <a href="servicio-tributario.html" class="nav__dropdown-item" role="menuitem">
+                                <span class="nav__dropdown-item__icon">
+                                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                                </span>
+                                <span class="nav__dropdown-item__text">
+                                    <span class="nav__dropdown-item__name">Outsourcing Tributario</span>
+                                    <span class="nav__dropdown-item__desc">Cumplimiento y planificación fiscal</span>
+                                </span>
+                            </a>
+                            <a href="servicio-laboral.html" class="nav__dropdown-item" role="menuitem">
+                                <span class="nav__dropdown-item__icon">
+                                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                </span>
+                                <span class="nav__dropdown-item__text">
+                                    <span class="nav__dropdown-item__name">Outsourcing Laboral</span>
+                                    <span class="nav__dropdown-item__desc">Nómina y gestión de personas</span>
+                                </span>
+                            </a>
+                            <div class="nav__dropdown-divider" role="separator"></div>
+                            <a href="servicios.html" class="nav__dropdown-all" role="menuitem">
+                                Ver todos los servicios
+                                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </a>
+                        </div>
+                    </li>
                     <li><a href="nosotros.html" class="nav__link">Nosotros</a></li>
                     <li><a href="contacto.html" class="nav__link">Contacto</a></li>
                     <li>
                         <a href="contacto.html#agendar" class="nav__cta">
-                            <i data-lucide="calendar"></i>
+                            <!-- Calendar icon — inline SVG -->
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
                             <span>Agenda una Reunión</span>
                         </a>
                     </li>
@@ -435,24 +631,78 @@
                 </div>
             </div>
 
-            <!-- Service Quick Nav -->
+            <!-- Service Quick Nav — premium card-tabs -->
             <div style="margin-top: var(--spacing-16);">
                 <nav class="service-nav" aria-label="Servicios">
-                    <a href="#contable" class="service-nav__link">Contable</a>
-                    <a href="#financiero" class="service-nav__link">Financiero</a>
-                    <a href="#tributario" class="service-nav__link">Tributario</a>
-                    <a href="#laboral" class="service-nav__link">Laboral</a>
+
+                    <!-- Contable -->
+                    <a href="#contable" class="service-nav__link">
+                        <div class="service-nav__icon" aria-hidden="true">
+                            <!-- Book / ledger icon -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                                <line x1="9" y1="7" x2="15" y2="7"/>
+                                <line x1="9" y1="11" x2="15" y2="11"/>
+                            </svg>
+                        </div>
+                        <span class="service-nav__num">01</span>
+                        Contable
+                    </a>
+
+                    <!-- Financiero -->
+                    <a href="#financiero" class="service-nav__link">
+                        <div class="service-nav__icon" aria-hidden="true">
+                            <!-- Line chart icon -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                            </svg>
+                        </div>
+                        <span class="service-nav__num">02</span>
+                        Financiero
+                    </a>
+
+                    <!-- Tributario -->
+                    <a href="#tributario" class="service-nav__link">
+                        <div class="service-nav__icon" aria-hidden="true">
+                            <!-- Shield / compliance icon -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                <polyline points="9 12 11 14 15 10"/>
+                            </svg>
+                        </div>
+                        <span class="service-nav__num">03</span>
+                        Tributario
+                    </a>
+
+                    <!-- Laboral -->
+                    <a href="#laboral" class="service-nav__link">
+                        <div class="service-nav__icon" aria-hidden="true">
+                            <!-- Users / people icon -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <span class="service-nav__num">04</span>
+                        Laboral
+                    </a>
+
                 </nav>
             </div>
         </div>
     </section>
 
-    <!-- SERVICE 1: Outsourcing Contable -->
+    <!-- ============================================================
+         SERVICE 1: Outsourcing Contable
+    ============================================================ -->
     <section class="section section--light" id="contable">
         <div class="container">
             <div class="service-layout">
                 <div>
-                    <span class="badge badge--accent" style="margin-bottom: var(--spacing-4); display: inline-block;">Servicio mas solicitado</span>
+                    <span class="badge badge--accent" style="margin-bottom: var(--spacing-4); display: inline-block;">Servicio más solicitado</span>
                     <span class="section-label">01 / Contable</span>
                     <h2 style="margin-bottom: var(--spacing-4);">Outsourcing Contable</h2>
                     <p style="font-size: var(--text-lg); color: var(--color-gray-600); margin-bottom: var(--spacing-6); line-height: 1.7;">
@@ -460,11 +710,11 @@
                         Registros precisos, estados financieros oportunos y cumplimiento normativo garantizado.
                     </p>
 
-                    <h3 style="font-size: var(--text-base); font-weight: var(--font-semibold); color: var(--color-gray-700); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--spacing-4);">Que incluye</h3>
+                    <p class="checklist-heading">Qué incluye</p>
                     <ul class="checklist">
                         <li class="checklist__item">
                             <span class="checklist__icon">
-                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                             </span>
                             <span class="checklist__text">
                                 <strong>Contabilidad General</strong>
@@ -473,7 +723,7 @@
                         </li>
                         <li class="checklist__item">
                             <span class="checklist__icon">
-                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                             </span>
                             <span class="checklist__text">
                                 <strong>Estados Financieros</strong>
@@ -482,25 +732,25 @@
                         </li>
                         <li class="checklist__item">
                             <span class="checklist__icon">
-                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                             </span>
                             <span class="checklist__text">
                                 <strong>Conciliaciones Bancarias</strong>
-                                <span>Cuadratura de cuentas bancarias y control de tesoreria</span>
+                                <span>Cuadratura de cuentas bancarias y control de tesorería</span>
                             </span>
                         </li>
                         <li class="checklist__item">
                             <span class="checklist__icon">
-                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                             </span>
                             <span class="checklist__text">
                                 <strong>Control de Activos Fijos</strong>
-                                <span>Registro, depreciacion y control de bienes del activo fijo</span>
+                                <span>Registro, depreciación y control de bienes del activo fijo</span>
                             </span>
                         </li>
                         <li class="checklist__item">
                             <span class="checklist__icon">
-                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                             </span>
                             <span class="checklist__text">
                                 <strong>Proceso de Cierre</strong>
@@ -518,19 +768,23 @@
                         <ul class="benefits-list">
                             <li class="benefits-list__item">
                                 <div class="benefits-list__icon">
-                                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    <!-- Shield check — accuracy -->
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                        <polyline points="9 12 11 14 15 10"/>
                                     </svg>
                                 </div>
                                 <div class="benefits-list__body">
-                                    <strong>Informacion Precisa</strong>
+                                    <strong>Información Precisa</strong>
                                     <span>Estados financieros confiables para mejores decisiones</span>
                                 </div>
                             </li>
                             <li class="benefits-list__item">
                                 <div class="benefits-list__icon">
-                                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    <!-- Clock — time saving -->
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <polyline points="12 6 12 12 16 14"/>
                                     </svg>
                                 </div>
                                 <div class="benefits-list__body">
@@ -540,8 +794,10 @@
                             </li>
                             <li class="benefits-list__item">
                                 <div class="benefits-list__icon">
-                                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                    <!-- Trending up — scalability -->
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                                        <polyline points="17 6 23 6 23 12"/>
                                     </svg>
                                 </div>
                                 <div class="benefits-list__body">
@@ -556,33 +812,57 @@
         </div>
     </section>
 
-    <!-- SERVICE 2: Outsourcing Financiero -->
+    <!-- ============================================================
+         SERVICE 2: Outsourcing Financiero
+    ============================================================ -->
     <section class="section" id="financiero">
         <div class="container">
             <div class="service-layout service-layout--reverse">
                 <div class="service-layout__aside">
                     <div class="ideal-card">
-                        <h3 class="ideal-card__title">Para quien es ideal</h3>
+                        <h3 class="ideal-card__title">¿Para quién es ideal?</h3>
                         <ul class="ideal-list">
                             <li class="ideal-list__item">
-                                <div class="ideal-list__emoji">&#128640;</div>
+                                <div class="ideal-list__icon">
+                                    <!-- Rocket / growth -->
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+                                        <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                                        <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+                                        <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+                                    </svg>
+                                </div>
                                 <div class="ideal-list__body">
                                     <strong>Empresas en Crecimiento</strong>
-                                    <span>Que necesitan proyecciones y analisis para escalar</span>
+                                    <span>Que necesitan proyecciones y análisis para escalar</span>
                                 </div>
                             </li>
                             <li class="ideal-list__item">
-                                <div class="ideal-list__emoji">&#128202;</div>
+                                <div class="ideal-list__icon">
+                                    <!-- Bar chart — multi-line analysis -->
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="18" y1="20" x2="18" y2="10"/>
+                                        <line x1="12" y1="20" x2="12" y2="4"/>
+                                        <line x1="6" y1="20" x2="6" y2="14"/>
+                                        <line x1="2" y1="20" x2="22" y2="20"/>
+                                    </svg>
+                                </div>
                                 <div class="ideal-list__body">
-                                    <strong>Negocios con Multiples Lineas</strong>
-                                    <span>Que requieren analisis de rentabilidad por producto/servicio</span>
+                                    <strong>Negocios con Múltiples Líneas</strong>
+                                    <span>Que requieren análisis de rentabilidad por producto/servicio</span>
                                 </div>
                             </li>
                             <li class="ideal-list__item">
-                                <div class="ideal-list__emoji">&#128188;</div>
+                                <div class="ideal-list__icon">
+                                    <!-- Briefcase — executives -->
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                                    </svg>
+                                </div>
                                 <div class="ideal-list__body">
                                     <strong>Directorios y Gerencias</strong>
-                                    <span>Que necesitan informacion ejecutiva para decisiones estrategicas</span>
+                                    <span>Que necesitan información ejecutiva para decisiones estratégicas</span>
                                 </div>
                             </li>
                         </ul>
@@ -593,24 +873,24 @@
                     <span class="section-label">02 / Financiero</span>
                     <h2 style="margin-bottom: var(--spacing-4);">Outsourcing Financiero</h2>
                     <p style="font-size: var(--text-lg); color: var(--color-gray-600); margin-bottom: var(--spacing-6); line-height: 1.7;">
-                        Analisis financiero estrategico para impulsar el crecimiento y la rentabilidad de tu empresa.
-                        Informacion relevante y oportuna para tomar decisiones inteligentes.
+                        Análisis financiero estratégico para impulsar el crecimiento y la rentabilidad de tu empresa.
+                        Información relevante y oportuna para tomar decisiones inteligentes.
                     </p>
 
-                    <h3 style="font-size: var(--text-base); font-weight: var(--font-semibold); color: var(--color-gray-700); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--spacing-4);">Que incluye</h3>
+                    <p class="checklist-heading">Qué incluye</p>
                     <ul class="checklist">
                         <li class="checklist__item">
                             <span class="checklist__icon">
-                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                             </span>
                             <span class="checklist__text">
-                                <strong>Analisis Financiero</strong>
-                                <span>Indicadores clave (KPIs), ratios financieros, analisis de rentabilidad</span>
+                                <strong>Análisis Financiero</strong>
+                                <span>Indicadores clave (KPIs), ratios financieros, análisis de rentabilidad</span>
                             </span>
                         </li>
                         <li class="checklist__item">
                             <span class="checklist__icon">
-                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                             </span>
                             <span class="checklist__text">
                                 <strong>Proyecciones Financieras</strong>
@@ -619,16 +899,16 @@
                         </li>
                         <li class="checklist__item">
                             <span class="checklist__icon">
-                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                             </span>
                             <span class="checklist__text">
-                                <strong>Control de Gestion</strong>
-                                <span>Analisis de desviaciones presupuestarias y propuestas correctivas</span>
+                                <strong>Control de Gestión</strong>
+                                <span>Análisis de desviaciones presupuestarias y propuestas correctivas</span>
                             </span>
                         </li>
                         <li class="checklist__item">
                             <span class="checklist__icon">
-                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                             </span>
                             <span class="checklist__text">
                                 <strong>Reporting Ejecutivo</strong>
@@ -637,11 +917,11 @@
                         </li>
                         <li class="checklist__item">
                             <span class="checklist__icon">
-                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                             </span>
                             <span class="checklist__text">
-                                <strong>Analisis de Inversiones</strong>
-                                <span>Evaluacion de proyectos, VAN, TIR, periodo de recuperacion</span>
+                                <strong>Análisis de Inversiones</strong>
+                                <span>Evaluación de proyectos, VAN, TIR, período de recuperación</span>
                             </span>
                         </li>
                     </ul>
@@ -652,7 +932,9 @@
         </div>
     </section>
 
-    <!-- SERVICE 3: Outsourcing Tributario -->
+    <!-- ============================================================
+         SERVICE 3: Outsourcing Tributario
+    ============================================================ -->
     <section class="section section--light" id="tributario">
         <div class="container">
             <div class="service-layout">
@@ -660,55 +942,55 @@
                     <span class="section-label">03 / Tributario</span>
                     <h2 style="margin-bottom: var(--spacing-4);">Outsourcing Tributario</h2>
                     <p style="font-size: var(--text-lg); color: var(--color-gray-600); margin-bottom: var(--spacing-6); line-height: 1.7;">
-                        Cumplimiento tributario total y planificacion fiscal estrategica. Mantén tu empresa actualizada
+                        Cumplimiento tributario total y planificación fiscal estratégica. Mantén tu empresa actualizada
                         con todas las obligaciones impositivas y optimiza tu carga tributaria de manera legal.
                     </p>
 
-                    <h3 style="font-size: var(--text-base); font-weight: var(--font-semibold); color: var(--color-gray-700); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--spacing-4);">Que incluye</h3>
+                    <p class="checklist-heading">Qué incluye</p>
                     <ul class="checklist">
                         <li class="checklist__item">
                             <span class="checklist__icon">
-                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                             </span>
                             <span class="checklist__text">
                                 <strong>Declaraciones Mensuales</strong>
-                                <span>IVA, retenciones, PPM y otros impuestos periodicos</span>
+                                <span>IVA, retenciones, PPM y otros impuestos periódicos</span>
                             </span>
                         </li>
                         <li class="checklist__item">
                             <span class="checklist__icon">
-                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                             </span>
                             <span class="checklist__text">
                                 <strong>Impuesto a la Renta</strong>
-                                <span>Preparacion y presentacion de declaracion anual (F22)</span>
+                                <span>Preparación y presentación de declaración anual (F22)</span>
                             </span>
                         </li>
                         <li class="checklist__item">
                             <span class="checklist__icon">
-                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                             </span>
                             <span class="checklist__text">
-                                <strong>Planificacion Tributaria</strong>
+                                <strong>Planificación Tributaria</strong>
                                 <span>Estrategias legales para optimizar carga impositiva</span>
                             </span>
                         </li>
                         <li class="checklist__item">
                             <span class="checklist__icon">
-                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                             </span>
                             <span class="checklist__text">
-                                <strong>Asesoria en Fiscalizaciones</strong>
-                                <span>Representacion y soporte en procesos del SII</span>
+                                <strong>Asesoría en Fiscalizaciones</strong>
+                                <span>Representación y soporte en procesos del SII</span>
                             </span>
                         </li>
                         <li class="checklist__item">
                             <span class="checklist__icon">
-                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                             </span>
                             <span class="checklist__text">
-                                <strong>Actualizacion Normativa</strong>
-                                <span>Monitoreo de cambios legales y comunicacion oportuna</span>
+                                <strong>Actualización Normativa</strong>
+                                <span>Monitoreo de cambios legales y comunicación oportuna</span>
                             </span>
                         </li>
                     </ul>
@@ -719,22 +1001,27 @@
                 <div class="service-layout__aside">
                     <div class="insight-card">
                         <h3 class="insight-card__heading">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                <line x1="12" y1="9" x2="12" y2="13"/>
+                                <line x1="12" y1="17" x2="12.01" y2="17"/>
                             </svg>
-                            Sabias que...
+                            ¿Sabías que...?
                         </h3>
                         <div class="insight-stat">
-                            <p>El <strong>68% de las empresas</strong> enfrenta multas o recargos por incumplimientos tributarios evitables.</p>
+                            <span class="insight-stat__number">68%</span>
+                            <p>De las empresas enfrenta multas por <strong>incumplimientos tributarios evitables</strong>.</p>
                         </div>
                         <div class="insight-stat">
-                            <p><strong>Una buena planificacion tributaria</strong> puede reducir legalmente hasta un 20% en impuestos.</p>
+                            <span class="insight-stat__number">-20%</span>
+                            <p>Reducción legal de impuestos con una <strong>planificación tributaria efectiva</strong>.</p>
                         </div>
                         <div class="insight-stat">
-                            <p><strong>Los cambios normativos</strong> ocurren constantemente. Mantenerse actualizado es critico.</p>
+                            <span class="insight-stat__number">24/7</span>
+                            <p><strong>Cambios normativos</strong> constantes requieren monitoreo profesional continuo.</p>
                         </div>
                         <div class="insight-quote">
-                            "Con Masferrer &amp; Partners, nunca mas te preocupes por plazos ni multas tributarias."
+                            "Con Masferrer &amp; Partners, nunca más te preocupes por plazos ni multas tributarias."
                         </div>
                     </div>
                 </div>
@@ -742,7 +1029,9 @@
         </div>
     </section>
 
-    <!-- SERVICE 4: Outsourcing Laboral -->
+    <!-- ============================================================
+         SERVICE 4: Outsourcing Laboral
+    ============================================================ -->
     <section class="section" id="laboral">
         <div class="container">
             <div class="service-layout service-layout--reverse">
@@ -750,39 +1039,39 @@
                     <div class="labour-card">
                         <h3 class="labour-card__title">Complejidad Laboral Simplificada</h3>
                         <p class="labour-card__desc">
-                            La legislacion laboral chilena es compleja y esta en constante cambio. Nuestro equipo
+                            La legislación laboral chilena es compleja y está en constante cambio. Nuestro equipo
                             especializado se encarga de:
                         </p>
                         <ul class="labour-checklist">
                             <li class="labour-checklist__item">
                                 <span class="labour-checklist__dot">
-                                    <svg viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                                 </span>
-                                Calculos precisos de liquidaciones y finiquitos
+                                Cálculos precisos de liquidaciones y finiquitos
                             </li>
                             <li class="labour-checklist__item">
                                 <span class="labour-checklist__dot">
-                                    <svg viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                                 </span>
                                 Cumplimiento de leyes laborales vigentes
                             </li>
                             <li class="labour-checklist__item">
                                 <span class="labour-checklist__dot">
-                                    <svg viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                                 </span>
                                 Declaraciones previsionales sin errores
                             </li>
                             <li class="labour-checklist__item">
                                 <span class="labour-checklist__dot">
-                                    <svg viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                                 </span>
-                                Asesoria en conflictos laborales
+                                Asesoría en conflictos laborales
                             </li>
                             <li class="labour-checklist__item">
                                 <span class="labour-checklist__dot">
-                                    <svg viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                                 </span>
-                                Actualizacion ante reformas laborales
+                                Actualización ante reformas laborales
                             </li>
                         </ul>
                     </div>
@@ -792,55 +1081,55 @@
                     <span class="section-label">04 / Laboral</span>
                     <h2 style="margin-bottom: var(--spacing-4);">Outsourcing Laboral</h2>
                     <p style="font-size: var(--text-lg); color: var(--color-gray-600); margin-bottom: var(--spacing-6); line-height: 1.7;">
-                        Administracion integral de remuneraciones y cumplimiento de todas las obligaciones laborales y
-                        previsionales. Tranquilidad para ti, satisfaccion para tus colaboradores.
+                        Administración integral de remuneraciones y cumplimiento de todas las obligaciones laborales y
+                        previsionales. Tranquilidad para ti, satisfacción para tus colaboradores.
                     </p>
 
-                    <h3 style="font-size: var(--text-base); font-weight: var(--font-semibold); color: var(--color-gray-700); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--spacing-4);">Que incluye</h3>
+                    <p class="checklist-heading">Qué incluye</p>
                     <ul class="checklist">
                         <li class="checklist__item">
                             <span class="checklist__icon">
-                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                             </span>
                             <span class="checklist__text">
-                                <strong>Liquidacion de Sueldos</strong>
-                                <span>Calculo y emision de liquidaciones mensuales</span>
+                                <strong>Liquidación de Sueldos</strong>
+                                <span>Cálculo y emisión de liquidaciones mensuales</span>
                             </span>
                         </li>
                         <li class="checklist__item">
                             <span class="checklist__icon">
-                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                             </span>
                             <span class="checklist__text">
                                 <strong>Declaraciones Previsionales</strong>
-                                <span>Previred, mutual, caja de compensacion</span>
+                                <span>Previred, mutual, caja de compensación</span>
                             </span>
                         </li>
                         <li class="checklist__item">
                             <span class="checklist__icon">
-                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                             </span>
                             <span class="checklist__text">
                                 <strong>Contratos y Finiquitos</strong>
-                                <span>Preparacion de documentos laborales</span>
+                                <span>Preparación de documentos laborales</span>
                             </span>
                         </li>
                         <li class="checklist__item">
                             <span class="checklist__icon">
-                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                             </span>
                             <span class="checklist__text">
                                 <strong>Libro de Remuneraciones</strong>
-                                <span>Mantencion y actualizacion electronica</span>
+                                <span>Mantención y actualización electrónica</span>
                             </span>
                         </li>
                         <li class="checklist__item">
                             <span class="checklist__icon">
-                                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                             </span>
                             <span class="checklist__text">
-                                <strong>Asesoria Laboral</strong>
-                                <span>Soporte continuo en temas de RRHH y legislacion laboral</span>
+                                <strong>Asesoría Laboral</strong>
+                                <span>Soporte continuo en temas de RRHH y legislación laboral</span>
                             </span>
                         </li>
                     </ul>
@@ -855,12 +1144,12 @@
     <section class="section section--dark">
         <div class="container">
             <div style="max-width: 700px; margin: 0 auto; text-align: center;">
-                <h2 style="margin-bottom: var(--spacing-6);">Necesitas una Solucion Integral?</h2>
+                <h2 style="margin-bottom: var(--spacing-6);">¿Necesitas una Solución Integral?</h2>
                 <p style="margin-bottom: var(--spacing-8); font-size: var(--text-lg); color: var(--color-gray-200); line-height: 1.7;">
-                    La mayoria de nuestros clientes contratan multiples servicios para obtener una gestion
-                    administrativa completa. Agenda una reunion y disenaremos la solucion perfecta para tu empresa.
+                    La mayoría de nuestros clientes contratan múltiples servicios para obtener una gestión
+                    administrativa completa. Agenda una reunión y diseñaremos la solución perfecta para tu empresa.
                 </p>
-                <a href="contacto.html#agendar" class="btn btn--primary btn--lg">Agenda una Reunion Gratuita</a>
+                <a href="contacto.html#agendar" class="btn btn--primary btn--lg">Agenda una Reunión Gratuita</a>
             </div>
         </div>
     </section>
@@ -912,19 +1201,34 @@
                     <h4 class="footer__col-title">Contacto</h4>
                     <ul class="footer__contact">
                         <li class="footer__contact-item">
-                            <i data-lucide="map-pin" class="footer__contact-icon" aria-hidden="true"></i>
+                            <!-- Map pin — inline SVG -->
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="footer__contact-icon" aria-hidden="true">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
                             <span>Dirección Placeholder<br>Santiago, Chile</span>
                         </li>
                         <li class="footer__contact-item">
-                            <i data-lucide="phone" class="footer__contact-icon" aria-hidden="true"></i>
+                            <!-- Phone — inline SVG -->
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="footer__contact-icon" aria-hidden="true">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.17h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.72a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                            </svg>
                             <a href="tel:+56912345678" class="footer__link">+56 9 1234 5678</a>
                         </li>
                         <li class="footer__contact-item">
-                            <i data-lucide="mail" class="footer__contact-icon" aria-hidden="true"></i>
+                            <!-- Mail — inline SVG -->
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="footer__contact-icon" aria-hidden="true">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
                             <a href="mailto:contacto@masferrer.cl" class="footer__link">contacto@masferrer.cl</a>
                         </li>
                         <li class="footer__contact-item">
-                            <i data-lucide="clock" class="footer__contact-icon" aria-hidden="true"></i>
+                            <!-- Clock — inline SVG -->
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="footer__contact-icon" aria-hidden="true">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
                             <span>Lun - Vie: 9:00 - 18:00</span>
                         </li>
                     </ul>
@@ -943,7 +1247,6 @@
         </div>
     </footer>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="main.js"></script>
 </body>
 
