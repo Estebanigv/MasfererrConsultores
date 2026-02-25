@@ -353,6 +353,26 @@
     box-shadow: var(--shadow-sm);
 }
 
+.ideal-list__icon {
+    width: 44px;
+    height: 44px;
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-sm);
+}
+
+.ideal-list__icon svg {
+    width: 22px;
+    height: 22px;
+    stroke: var(--color-primary);
+    fill: none;
+}
+
 .ideal-list__body strong {
     display: block;
     color: var(--color-primary);
@@ -976,6 +996,12 @@
     .tech-card {
         padding: var(--spacing-8);
     }
+
+    /* Stats: 3 → 2 columns at tablet */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-5);
+    }
 }
 
 @media (max-width: 768px) {
@@ -1116,12 +1142,15 @@
     padding: var(--spacing-3) var(--spacing-4);
     border: 1.5px solid var(--color-gray-300);
     border-radius: var(--radius-base);
-    font-size: var(--text-base);
+    /* 1rem (16px) minimum prevents iOS Safari auto-zoom on focus */
+    font-size: max(1rem, var(--text-base));
     font-family: var(--font-primary);
     color: var(--color-gray-800);
     background: var(--color-white);
     transition: border-color var(--transition-base), box-shadow var(--transition-base);
     outline: none;
+    /* Ensure inputs don't exceed container width */
+    max-width: 100%;
 }
 
 .contact-form .form-input:focus,
@@ -1351,7 +1380,7 @@
     }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
     .contact-layout {
         grid-template-columns: 1fr;
         gap: var(--spacing-10);
@@ -1382,7 +1411,7 @@
     }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 480px) {
     .form-row {
         grid-template-columns: 1fr;
         gap: 0;
@@ -1418,7 +1447,8 @@
     .form-input,
     .form-select,
     .form-textarea {
-        font-size: var(--text-sm);
+        /* Keep at 16px minimum to prevent iOS Safari auto-zoom on focus */
+        font-size: 1rem;
     }
 }
 
@@ -1446,6 +1476,10 @@
     border: 1px solid var(--color-gray-300);
     cursor: pointer;
     transition: all var(--transition-base);
+    /* Accessibility: minimum 44px touch target height */
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
 }
 
 .faq-pill:hover,

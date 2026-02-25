@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://masferrerconsultores.cl/sitemap.xml
+
+# Disallow internal/dev files
+Disallow: /Logotipo/
+Disallow: /*.css$
+Disallow: /*.js$

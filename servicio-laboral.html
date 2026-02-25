@@ -4,11 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Outsourcing Laboral con Masferrer &amp; Partners. Liquidación de sueldos, declaraciones previsionales, contratos, finiquitos y asesoría laboral continua para empresas en Chile.">
-    <meta name="keywords"
-        content="outsourcing laboral, liquidación de sueldos, remuneraciones, declaraciones previsionales, contratos laborales, finiquitos Chile">
-    <title>Outsourcing Laboral - Masferrer &amp; Partners</title>
+
+    <!-- Primary Meta Tags -->
+    <title>Outsourcing Laboral en Chile | Liquidación de Sueldos y Nómina | Masferrer & Partners</title>
+    <meta name="description" content="Outsourcing laboral en Chile: liquidación de sueldos, declaraciones previsionales, contratos, finiquitos y asesoría laboral continua para empresas. Masferrer & Partners, Providencia Santiago.">
+    <meta name="keywords" content="outsourcing laboral Chile, liquidación de sueldos Santiago, remuneraciones empresas, declaraciones previsionales, contratos laborales, finiquitos Chile, nómina empresas">
+    <meta name="author" content="Masferrer & Partners">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://masferrerconsultores.cl/servicio-laboral.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://masferrerconsultores.cl/servicio-laboral.html">
+    <meta property="og:title" content="Outsourcing Laboral en Chile | Masferrer & Partners">
+    <meta property="og:description" content="Liquidación de sueldos, declaraciones previsionales, contratos y asesoría laboral para empresas en Chile.">
+    <meta property="og:image" content="https://masferrerconsultores.cl/Logotipo/Logo Masferrer & Partners - Horizontal SS.svg">
+    <meta property="og:locale" content="es_CL">
+    <meta property="og:site_name" content="Masferrer & Partners">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Outsourcing Laboral en Chile | Masferrer & Partners">
+    <meta name="twitter:description" content="Liquidación de sueldos, declaraciones previsionales y asesoría laboral para empresas en Chile.">
+    <meta name="twitter:image" content="https://masferrerconsultores.cl/Logotipo/Logo Masferrer & Partners - Horizontal SS.svg">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,6 +42,53 @@
     <!-- GSAP -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+    <!-- Structured Data: Service + BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Outsourcing Laboral",
+      "serviceType": "Gestión de Recursos Humanos y Nómina",
+      "provider": {
+        "@type": "AccountingService",
+        "name": "Masferrer & Partners",
+        "url": "https://masferrerconsultores.cl",
+        "telephone": "+56997016685",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Dr M Barros Borgoño 71, of 1105",
+          "addressLocality": "Providencia",
+          "addressRegion": "Región Metropolitana",
+          "addressCountry": "CL"
+        }
+      },
+      "areaServed": {"@type": "Country", "name": "Chile"},
+      "description": "Administración integral de remuneraciones y cumplimiento de obligaciones laborales: liquidación de sueldos, declaraciones previsionales (AFP, Isapre), contratos, finiquitos y asesoría laboral continua para empresas en Chile.",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Servicios Laborales",
+        "itemListElement": [
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Liquidación de Sueldos"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Declaraciones Previsionales AFP e Isapre"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Contratos y Finiquitos"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Asesoría Laboral Continua"}}
+        ]
+      },
+      "url": "https://masferrerconsultores.cl/servicio-laboral.html"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://masferrerconsultores.cl/"},
+        {"@type": "ListItem", "position": 2, "name": "Servicios", "item": "https://masferrerconsultores.cl/servicios.html"},
+        {"@type": "ListItem", "position": 3, "name": "Outsourcing Laboral", "item": "https://masferrerconsultores.cl/servicio-laboral.html"}
+      ]
+    }
+    </script>
 
     <style>
         /* ── Overview intro ── */
@@ -83,19 +148,17 @@
         .service-visual::before {
             content: '';
             position: absolute;
-            top: -40px;
-            right: -40px;
-            width: 220px;
-            height: 220px;
-            border-radius: 50%;
-            background: rgba(91, 63, 216, 0.3);
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='g' width='60' height='60' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 60 0 L 0 0 0 60' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='60' height='60' fill='url(%23g)'/%3E%3C/svg%3E");
+            pointer-events: none;
         }
 
         .service-visual__icon {
-            width: 72px;
-            height: 72px;
-            background: rgba(255, 255, 255, 0.12);
-            border-radius: var(--radius-lg);
+            width: 56px;
+            height: 56px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -510,21 +573,31 @@
         }
 
         @media (max-width: 768px) {
-            .overview-grid { grid-template-columns: 1fr; }
-            .overview-metrics { grid-template-columns: repeat(3, 1fr); }
+            .overview-grid { grid-template-columns: 1fr; gap: var(--spacing-8); }
+            .overview-metrics { grid-template-columns: repeat(2, 1fr); gap: var(--spacing-3); }
+            .overview-lead { font-size: var(--text-base); }
             .includes-grid { grid-template-columns: 1fr; }
             .process-grid { grid-template-columns: 1fr; }
             .benefits-cols { grid-template-columns: 1fr; }
             .related-grid { grid-template-columns: 1fr; }
             .cta-service { padding: var(--spacing-8) var(--spacing-6); }
+            .service-visual { padding: var(--spacing-8); }
             .compliance-banner { grid-template-columns: 1fr; padding: var(--spacing-6); }
             .compliance-banner__icon { display: none; }
+            .compliance-banner__cta { width: 100%; justify-content: center; }
         }
 
         @media (max-width: 480px) {
             .overview-metrics { grid-template-columns: 1fr; }
+            .overview-metric { padding: var(--spacing-3); }
+            .overview-metric__num { font-size: var(--text-2xl); }
+            .cta-service { padding: var(--spacing-6) var(--spacing-4); }
+            .cta-service__title { font-size: var(--text-xl); }
             .cta-service__actions { flex-direction: column; align-items: stretch; }
-            .btn-service-primary, .btn-service-outline { justify-content: center; }
+            .btn-service-primary, .btn-service-outline { justify-content: center; width: 100%; }
+            .service-visual { padding: var(--spacing-6); }
+            .include-item { padding: var(--spacing-4); gap: var(--spacing-3); }
+            .compliance-banner { padding: var(--spacing-5); }
         }
     </style>
 
@@ -596,17 +669,10 @@
                         </div>
                     </li>
                     <li><a href="nosotros.html" class="nav__link">Nosotros</a></li>
-                    <li><a href="contacto.html" class="nav__link">Contacto</a></li>
                     <li>
-                        <a href="contacto.html#agendar" class="nav__cta">
-                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75"
-                                stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                                <line x1="16" y1="2" x2="16" y2="6"/>
-                                <line x1="8" y1="2" x2="8" y2="6"/>
-                                <line x1="3" y1="10" x2="21" y2="10"/>
-                            </svg>
-                            <span>Agenda una Reunión</span>
+                        <a href="contacto.html" class="nav__cta">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            <span>Contacto</span>
                         </a>
                     </li>
                 </ul>
@@ -712,7 +778,7 @@
                         <div class="compliance-banner__title">Cumplimiento Garantizado con la DT y Previsionales</div>
                         <p class="compliance-banner__desc">Nos encargamos de todos los plazos legales: declaración y pago de AFP, Isapre/Fonasa, AFC, mutual y seguro de cesantía, evitando intereses y recargos.</p>
                     </div>
-                    <a href="contacto.html#agendar" class="compliance-banner__cta">
+                    <a href="agendar.html" class="compliance-banner__cta">
                         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75"
                             stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
                             <line x1="5" y1="12" x2="19" y2="12"/>
@@ -925,16 +991,75 @@
 
 
     <!-- ============================================================
+         PARA QUIÉN ES SECTION
+    ============================================================ -->
+    <section class="section" aria-labelledby="ideal-heading">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Para quién es</span>
+                <h2 class="section-title" id="ideal-heading">¿Este Servicio es Para su Empresa?</h2>
+                <p class="section-subtitle">Nuestro outsourcing laboral está diseñado para empresas que desean externalizar la complejidad administrativa de recursos humanos y nóminas.</p>
+            </div>
+
+            <div class="ideal-card" style="max-width: 800px; margin: 0 auto;">
+                <ul class="ideal-list">
+                    <li class="ideal-list__item">
+                        <div class="ideal-list__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+                                <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                                <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+                                <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+                            </svg>
+                        </div>
+                        <div class="ideal-list__body">
+                            <strong>Empresas con Dotación en Crecimiento</strong>
+                            <span>Que están contratando y necesitan gestionar contratos, nóminas y previsión sin errores</span>
+                        </div>
+                    </li>
+                    <li class="ideal-list__item">
+                        <div class="ideal-list__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <div class="ideal-list__body">
+                            <strong>PYMEs sin Área de RRHH</strong>
+                            <span>Que necesitan cumplimiento laboral y previsional garantizado sin un departamento dedicado</span>
+                        </div>
+                    </li>
+                    <li class="ideal-list__item">
+                        <div class="ideal-list__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                            </svg>
+                        </div>
+                        <div class="ideal-list__body">
+                            <strong>Empresas que Buscan Reducir Riesgos</strong>
+                            <span>Que quieren evitar multas de la Dirección del Trabajo y problemas legales laborales</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================================
          CTA SECTION
     ============================================================ -->
-    <section class="section" aria-labelledby="cta-heading">
+    <section class="section section--alt" aria-labelledby="cta-heading">
         <div class="container">
             <div class="cta-service">
                 <div class="cta-service__content">
                     <h2 class="cta-service__title" id="cta-heading">¿Quiere Eliminar el Estrés de las Remuneraciones?</h2>
                     <p class="cta-service__desc">Delegue la gestión laboral a expertos. Agende una reunión y le explicamos cómo podemos asumir su proceso de remuneraciones en tiempo récord.</p>
                     <div class="cta-service__actions">
-                        <a href="contacto.html#agendar" class="btn-service-primary">
+                        <a href="agendar.html" class="btn-service-primary">
                             <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75"
                                 stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
                                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -1076,7 +1201,7 @@
                                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
                                 <circle cx="12" cy="10" r="3"/>
                             </svg>
-                            <span>Dirección Placeholder<br>Santiago, Chile</span>
+                            <span>Dr M Barros Borgoño 71 of 1105<br>Providencia, Santiago</span>
                         </li>
                         <li class="footer__contact-item">
                             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75"
@@ -1084,7 +1209,7 @@
                                 class="footer__contact-icon" aria-hidden="true">
                                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1 19.79 19.79 0 0 1 1.61 4.5 2 2 0 0 1 3.6 2.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.06 6.06l1.18-1.18a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
                             </svg>
-                            <a href="tel:+56912345678" class="footer__link">+56 9 1234 5678</a>
+                            <a href="tel:+56997016685" class="footer__link">+56 9 9701 6685</a>
                         </li>
                         <li class="footer__contact-item">
                             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75"
@@ -1093,7 +1218,7 @@
                                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                                 <polyline points="22,6 12,13 2,6"/>
                             </svg>
-                            <a href="mailto:contacto@masferrer.cl" class="footer__link">contacto@masferrer.cl</a>
+                            <a href="mailto:pmv@masferrerconsultores.cl" class="footer__link">pmv@masferrerconsultores.cl</a>
                         </li>
                         <li class="footer__contact-item">
                             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75"

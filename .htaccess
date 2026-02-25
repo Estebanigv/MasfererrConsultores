@@ -1,0 +1,149 @@
+# ============================================================
+# MASFERRER & PARTNERS — Apache Security Headers
+# Generated: 2026-02-25
+# ============================================================
+
+# ──────────────────────────────────────────
+# 1. HTTPS ENFORCEMENT
+# ──────────────────────────────────────────
+# Redirect all HTTP traffic to HTTPS (uncomment when SSL certificate is active)
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteCond %{HTTPS} off
+#     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>
+
+# ──────────────────────────────────────────
+# 2. SECURITY HEADERS
+# ──────────────────────────────────────────
+<IfModule mod_headers.c>
+
+    # Prevent MIME-type sniffing attacks
+    Header always set X-Content-Type-Options "nosniff"
+
+    # Block clickjacking: only allow framing from same origin
+    Header always set X-Frame-Options "SAMEORIGIN"
+
+    # Legacy XSS filter for older IE/Edge (belt-and-suspenders)
+    Header always set X-XSS-Protection "1; mode=block"
+
+    # Control referrer information leaked to third-party sites
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Permissions Policy: disable features this site does not use
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()"
+
+    # HTTP Strict Transport Security (1 year, no subdomain lock yet)
+    # IMPORTANT: Uncomment ONLY after SSL is confirmed working on all pages
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+    # ── Content Security Policy ──────────────────────────────
+    # This CSP is tailored to the actual third-party resources used on this site:
+    #   - Google Fonts  (fonts.googleapis.com, fonts.gstatic.com)
+    #   - GSAP CDN      (cdn.jsdelivr.net)
+    #   - Google Maps   (www.google.com — iframe embed)
+    #   - WhatsApp      (wa.me — external link only, not script)
+    #   - Cal.com       (app.cal.com — future embed, script-src entry included)
+    #
+    # 'unsafe-inline' for style-src is required because the site uses
+    # inline <style> blocks per page. Remove it after extracting those
+    # styles to external CSS files.
+    #
+    # There are NO inline event handlers in JS (onclick, etc.) in fixed code,
+    # so 'unsafe-inline' in script-src is NOT needed and is deliberately excluded.
+    Header always set Content-Security-Policy "\
+default-src 'self'; \
+script-src 'self' https://cdn.jsdelivr.net https://app.cal.com; \
+style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; \
+font-src 'self' https://fonts.gstatic.com; \
+img-src 'self' data: https:; \
+frame-src https://www.google.com https://app.cal.com; \
+connect-src 'self'; \
+object-src 'none'; \
+base-uri 'self'; \
+form-action 'self'; \
+upgrade-insecure-requests"
+
+    # Remove the X-Powered-By header if PHP is used in future
+    Header always unset X-Powered-By
+
+    # Prevent caching of sensitive pages
+    <FilesMatch "\.(html|htm)$">
+        Header set Cache-Control "no-cache, must-revalidate"
+    </FilesMatch>
+
+</IfModule>
+
+# ──────────────────────────────────────────
+# 3. DIRECTORY LISTING PROTECTION
+# ──────────────────────────────────────────
+Options -Indexes
+
+# ──────────────────────────────────────────
+# 4. PROTECT SENSITIVE FILES FROM DIRECT ACCESS
+# ──────────────────────────────────────────
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|bak|sql|env|config)$">
+    Require all denied
+</FilesMatch>
+
+# Block access to hidden files (dot-files) except .well-known (for SSL)
+<FilesMatch "^\.(?!well-known)">
+    Require all denied
+</FilesMatch>
+
+# ──────────────────────────────────────────
+# 5. MIME TYPE HARDENING
+# ──────────────────────────────────────────
+<IfModule mod_mime.c>
+    AddType text/html .html .htm
+    AddType text/css .css
+    AddType application/javascript .js
+    AddType image/svg+xml .svg
+    AddType application/pdf .pdf
+</IfModule>
+
+# ──────────────────────────────────────────
+# 6. COMPRESSION (performance + security: reduces info leakage from verbose errors)
+# ──────────────────────────────────────────
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml
+</IfModule>
+
+# ──────────────────────────────────────────
+# 7. STATIC ASSET CACHING (fonts, images, CSS, JS)
+# ──────────────────────────────────────────
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css                  "access plus 1 month"
+    ExpiresByType application/javascript    "access plus 1 month"
+    ExpiresByType image/svg+xml             "access plus 1 year"
+    ExpiresByType image/png                 "access plus 1 year"
+    ExpiresByType image/jpeg                "access plus 1 year"
+    ExpiresByType image/webp                "access plus 1 year"
+    ExpiresByType application/pdf           "access plus 1 month"
+</IfModule>
+
+# ──────────────────────────────────────────
+# 8. CUSTOM ERROR PAGES (prevent information disclosure)
+# ──────────────────────────────────────────
+# ErrorDocument 403 /index.html
+# ErrorDocument 404 /index.html
+
+# ──────────────────────────────────────────
+# NOTE — SRI Hashes to add to HTML <script> tags:
+# Run the following commands on your server to generate integrity hashes,
+# then add integrity="sha384-<HASH>" crossorigin="anonymous" to each tag.
+#
+# For GSAP 3.12.5:
+#   curl -s https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js | \
+#     openssl dgst -sha384 -binary | openssl base64 -A
+#
+#   curl -s https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js | \
+#     openssl dgst -sha384 -binary | openssl base64 -A
+#
+# Then update every HTML page:
+#   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"
+#           integrity="sha384-<GSAP_HASH>" crossorigin="anonymous"></script>
+#   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"
+#           integrity="sha384-<ST_HASH>" crossorigin="anonymous"></script>
+# ──────────────────────────────────────────

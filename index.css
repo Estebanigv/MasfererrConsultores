@@ -183,6 +183,17 @@ a {
 
 img, svg { display: block; }
 
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Prevent inline SVGs used as decorative elements from overflowing.
+   SVGs used as icons already have explicit width/height set. */
+svg:not([width]):not([height]) {
+    max-width: 100%;
+}
+
 /* ============================================================
    LAYOUT
    ============================================================ */
@@ -283,6 +294,8 @@ img, svg { display: block; }
     transition: all var(--transition-base);
     white-space: nowrap;
     text-decoration: none;
+    /* Accessibility: ensure minimum 44px touch target */
+    min-height: 44px;
 }
 
 .btn--primary {
@@ -1318,19 +1331,22 @@ body.no-gsap .reveal-card.is-visible {
 /* ============================================================
    RESPONSIVE
    ============================================================ */
-@media (max-width: 1200px) {
-    .footer__grid {
-        grid-template-columns: 1fr 1fr;
-        gap: var(--sp-10);
-    }
-}
-
 @media (max-width: 1024px) {
     :root {
         --section-py: var(--sp-20);
     }
 
+    .footer__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--sp-10);
+    }
+
     .benefits-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Sectors: 3 → 2 columns at tablet before single column on mobile */
+    .sectors-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
@@ -1347,10 +1363,6 @@ body.no-gsap .reveal-card.is-visible {
     .cta-actions {
         justify-content: center;
     }
-
-    .section-label--light {
-        /* visible in centered layout */
-    }
 }
 
 @media (max-width: 768px) {
@@ -1364,29 +1376,71 @@ body.no-gsap .reveal-card.is-visible {
         gap: var(--sp-4);
     }
 
+    .benefit-card {
+        padding: var(--sp-6) var(--sp-6);
+        display: flex;
+        align-items: flex-start;
+        gap: var(--sp-5);
+    }
+
+    .benefit-card__icon-wrap {
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+
+    .benefit-card__title {
+        font-size: var(--text-lg);
+        margin-bottom: var(--sp-2);
+    }
+
+    .benefit-card__text {
+        font-size: var(--text-sm);
+    }
+
     .services-grid {
         grid-template-columns: 1fr;
+    }
+
+    .service-card {
+        padding: var(--sp-6);
+    }
+
+    .service-card__title {
+        font-size: var(--text-xl);
+    }
+
+    .service-card__desc {
+        font-size: var(--text-sm);
     }
 
     .sectors-grid {
         grid-template-columns: 1fr;
     }
 
-    .sector-card__number {
-        font-size: 2.5rem;
-        top: var(--sp-4);
-        right: var(--sp-4);
+    .sector-card {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--sp-5);
+        padding: var(--sp-6);
     }
 
     .sector-card__icon {
         width: 48px;
         height: 48px;
+        margin-bottom: 0;
+        flex-shrink: 0;
     }
 
     .sector-card__icon i,
     .sector-card__icon svg {
         width: 22px;
         height: 22px;
+    }
+
+    .sector-card__number {
+        font-size: 2rem;
+        top: var(--sp-4);
+        right: var(--sp-4);
     }
 
     .benefit-card__icon {
@@ -1415,6 +1469,10 @@ body.no-gsap .reveal-card.is-visible {
         grid-template-columns: 1fr;
     }
 
+    .cta-form-card {
+        padding: var(--sp-6);
+    }
+
     .section-header {
         margin-bottom: var(--sp-10);
     }
@@ -1422,23 +1480,47 @@ body.no-gsap .reveal-card.is-visible {
 
 @media (max-width: 640px) {
     .sector-card {
-        padding: var(--sp-6);
+        padding: var(--sp-5);
+        gap: var(--sp-4);
     }
 
     .sector-card__number {
-        font-size: 2rem;
+        font-size: 1.75rem;
     }
 
     .sector-card__title {
-        font-size: 1.125rem;
+        font-size: 1.0625rem;
+    }
+
+    .sector-card__text {
+        font-size: var(--text-sm);
+        margin-bottom: var(--sp-4);
     }
 
     .service-card {
-        padding: var(--sp-6);
+        padding: var(--sp-5);
+    }
+
+    .service-card__header {
+        margin-bottom: var(--sp-4);
+    }
+
+    .service-card__icon-wrap {
+        width: 50px;
+        height: 50px;
+    }
+
+    .service-card__desc {
+        margin-bottom: var(--sp-4);
+    }
+
+    .service-card__list {
+        margin-bottom: var(--sp-5);
     }
 
     .benefit-card {
         padding: var(--sp-5);
+        gap: var(--sp-4);
     }
 
     .benefit-card__icon {
@@ -1458,21 +1540,42 @@ body.no-gsap .reveal-card.is-visible {
 
     .cta-subtitle {
         font-size: 0.9375rem;
+        margin-bottom: var(--sp-6);
+    }
+
+    .cta-form-card {
+        padding: var(--sp-5);
+    }
+
+    .cta-form-card__title {
+        font-size: var(--text-xl);
     }
 }
 
 @media (max-width: 480px) {
+    :root {
+        --container-px: var(--sp-4);
+    }
+
     .btn-cta {
         width: 100%;
         justify-content: center;
+        padding: var(--sp-3) var(--sp-5);
+        font-size: var(--text-sm);
     }
 
     .cta-actions {
         flex-direction: column;
     }
 
+    .sector-card {
+        padding: var(--sp-4);
+    }
+
     .sector-card__number {
         font-size: 1.5rem;
+        top: var(--sp-3);
+        right: var(--sp-3);
     }
 
     .sector-card__icon {
@@ -1486,6 +1589,15 @@ body.no-gsap .reveal-card.is-visible {
         height: 18px;
     }
 
+    .sector-card__title {
+        font-size: 1rem;
+    }
+
+    .benefit-card {
+        padding: var(--sp-4);
+        gap: var(--sp-3);
+    }
+
     .benefit-card__icon {
         width: 40px;
         height: 40px;
@@ -1495,5 +1607,85 @@ body.no-gsap .reveal-card.is-visible {
     .benefit-card__icon svg {
         width: 18px;
         height: 18px;
+    }
+
+    .benefit-card__title {
+        font-size: var(--text-base);
+    }
+
+    .service-card {
+        padding: var(--sp-4);
+    }
+
+    .service-card__title {
+        font-size: var(--text-lg);
+    }
+
+    .service-card__icon-wrap {
+        width: 44px;
+        height: 44px;
+    }
+
+    .service-card__icon-wrap i,
+    .service-card__icon-wrap svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .footer {
+        padding: var(--sp-12) 0 0;
+    }
+
+    .footer__tagline {
+        font-size: var(--text-xs);
+    }
+
+    .footer__col-title {
+        font-size: var(--text-xs);
+        margin-bottom: var(--sp-3);
+    }
+
+    .footer__link {
+        font-size: var(--text-xs);
+    }
+
+    .footer__contact-item {
+        font-size: var(--text-xs);
+    }
+
+    .section-header {
+        margin-bottom: var(--sp-8);
+    }
+
+    .section-title {
+        font-size: clamp(1.5rem, 6vw, 2rem);
+    }
+
+    .section-subtitle {
+        font-size: var(--text-base);
+    }
+
+    .cta-form-card {
+        padding: var(--sp-4);
+        border-radius: var(--radius-lg);
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+        /* Keep at 1rem (16px) minimum to prevent iOS Safari auto-zoom on focus */
+        font-size: 1rem;
+        padding: var(--sp-3);
+    }
+
+    .form-label {
+        font-size: var(--text-xs);
+    }
+
+    .btn-submit {
+        font-size: var(--text-sm);
+        padding: var(--sp-3) var(--sp-4);
+        /* Ensure minimum 44px touch target height */
+        min-height: 44px;
     }
 }

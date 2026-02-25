@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
             ScrollTrigger.refresh();
-        }, 2500);
+        }, 1200);
     } else {
         // Fallback: mark body so CSS-only reveals work
         document.body.classList.add('no-gsap');
@@ -155,19 +155,26 @@ document.addEventListener('DOMContentLoaded', function () {
         // ---- Benefit cards stagger ----
         const benefitCards = gsap.utils.toArray('.benefit-card');
         if (benefitCards.length) {
-            gsap.from(benefitCards, {
-                scrollTrigger: {
-                    trigger: benefitCards[0].closest('.benefits-grid') || benefitCards[0],
-                    start: 'top 82%',
-                    toggleActions: 'play none none none'
-                },
-                duration: 0.75,
-                y: 50,
-                opacity: 0,
-                stagger: 0.12,
-                ease: 'power3.out'
-            });
-
+            const benefitGrid = benefitCards[0].closest('.benefits-grid') || benefitCards[0];
+            // Check if section is already in view (e.g. page loaded scrolled)
+            const rect = benefitGrid.getBoundingClientRect();
+            if (rect.top < window.innerHeight) {
+                // Already visible — just ensure cards are shown
+                gsap.set(benefitCards, { opacity: 1, y: 0 });
+            } else {
+                gsap.from(benefitCards, {
+                    scrollTrigger: {
+                        trigger: benefitGrid,
+                        start: 'top 90%',
+                        toggleActions: 'play none none none'
+                    },
+                    duration: 0.75,
+                    y: 50,
+                    opacity: 0,
+                    stagger: 0.12,
+                    ease: 'power3.out'
+                });
+            }
         }
 
         // ---- Service cards stagger ----
@@ -284,25 +291,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // ==========================================
-    // 4. MOBILE NAVIGATION
+    // 4. MOBILE NAVIGATION — Full-screen overlay
     // ==========================================
     const navToggle = document.getElementById('navToggle');
     const nav = document.getElementById('nav');
-
-    // Create overlay element dynamically
-    let navOverlay = document.querySelector('.nav__overlay');
-    if (!navOverlay) {
-        navOverlay = document.createElement('div');
-        navOverlay.className = 'nav__overlay';
-        document.body.appendChild(navOverlay);
-    }
 
     // Declared at this scope so the dropdown IIFE (section 5) can call closeNav
     function openNav() {
         if (!nav || !navToggle) return;
         nav.classList.add('active');
         navToggle.classList.add('active');
-        navOverlay.classList.add('active');
         navToggle.setAttribute('aria-expanded', 'true');
         document.body.style.overflow = 'hidden';
     }
@@ -311,9 +309,16 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!nav || !navToggle) return;
         nav.classList.remove('active');
         navToggle.classList.remove('active');
-        navOverlay.classList.remove('active');
         navToggle.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
+
+        // Also close any open dropdown
+        const openDropdown = nav.querySelector('.nav__dropdown.is-open');
+        if (openDropdown) {
+            openDropdown.classList.remove('is-open');
+            const trigger = openDropdown.querySelector('.nav__link');
+            if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        }
     }
 
     if (navToggle && nav) {
@@ -329,9 +334,6 @@ document.addEventListener('DOMContentLoaded', function () {
         nav.querySelectorAll('.nav__link:not(.nav__dropdown > .nav__link), .nav__cta').forEach(link => {
             link.addEventListener('click', closeNav);
         });
-
-        // Close on overlay click
-        navOverlay.addEventListener('click', closeNav);
 
         // Close on ESC key
         document.addEventListener('keydown', function (e) {
@@ -492,69 +494,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // ==========================================
-    // 7. ACCORDION (FAQ page support)
+    // 7. FORM VALIDATION
     // ==========================================
-    document.querySelectorAll('.accordion__header').forEach(btn => {
-        btn.addEventListener('click', function () {
-            const item = this.closest('.accordion__item');
-            const content = item.querySelector('.accordion__content');
-            const isActive = this.classList.contains('active');
 
-            // Close all
-            document.querySelectorAll('.accordion__header.active').forEach(activeBtn => {
-                activeBtn.classList.remove('active');
-                activeBtn.closest('.accordion__item')
-                    .querySelector('.accordion__content')
-                    .classList.remove('active');
-            });
-
-            // Open this one if it wasn't already open
-            if (!isActive) {
-                this.classList.add('active');
-                content.classList.add('active');
-            }
-        });
-    });
-
-
-    // ==========================================
-    // 8. HERO SLIDER (legacy support)
-    // ==========================================
-    const heroSlider = document.getElementById('heroSlider');
-
-    if (heroSlider) {
-        const slides = heroSlider.querySelectorAll('.slider__slide');
-        const dots   = heroSlider.querySelectorAll('.slider__dot');
-        let current  = 0;
-        let timer;
-
-        const showSlide = (idx) => {
-            slides.forEach(s => s.classList.remove('active'));
-            dots.forEach(d => d.classList.remove('active'));
-            slides[idx].classList.add('active');
-            dots[idx].classList.add('active');
-        };
-
-        const next = () => { current = (current + 1) % slides.length; showSlide(current); };
-        const start = () => { timer = setInterval(next, 8000); };
-        const stop  = () => clearInterval(timer);
-
-        dots.forEach((dot, i) => {
-            dot.addEventListener('click', () => { stop(); current = i; showSlide(i); start(); });
-        });
-
-        heroSlider.addEventListener('mouseenter', stop);
-        heroSlider.addEventListener('mouseleave', start);
-        start();
+    // Honeypot: silently reject submissions where the hidden field is filled
+    // (bots fill all fields; humans never see or touch this field)
+    function isHoneypotTripped(form) {
+        const pot = form.querySelector('[name="_hp_website"]');
+        return pot && pot.value.length > 0;
     }
 
+    // Chilean phone: accepts +56 9 XXXX XXXX, 9XXXXXXXX, 56XXXXXXXXX, etc.
+    const PHONE_RE = /^(\+?56\s?)?(\s*9\s*)?\d[\d\s\-]{6,14}$/;
 
-    // ==========================================
-    // 9. FORM VALIDATION
-    // ==========================================
     document.querySelectorAll('form').forEach(form => {
         form.addEventListener('submit', function (e) {
             e.preventDefault();
+
+            // Honeypot check — fail silently to not reveal detection to bots
+            if (isHoneypotTripped(this)) {
+                return;
+            }
 
             let isValid = true;
 
@@ -565,33 +525,67 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (isEmpty) isValid = false;
             });
 
-            // Email pattern
+            // Email format
             this.querySelectorAll('input[type="email"]').forEach(field => {
-                const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value);
-                if (field.value && !ok) {
+                const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value.trim());
+                if (field.value.trim() && !ok) {
+                    field.classList.add('is-error');
+                    isValid = false;
+                }
+            });
+
+            // Phone format (optional, but validate format if provided)
+            this.querySelectorAll('input[type="tel"]').forEach(field => {
+                const val = field.value.trim();
+                if (val && !PHONE_RE.test(val)) {
                     field.classList.add('is-error');
                     isValid = false;
                 }
             });
 
             if (isValid) {
-                // Success state — replace with real API call in production
+                // Success state — replace with real API call in production.
+                // NOTE: btn.innerHTML is set only to a hardcoded SVG string
+                // and then restored to a saved reference — never to user input.
                 const btn = this.querySelector('[type="submit"]');
                 if (btn) {
-                    const original = btn.innerHTML;
-                    btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> ¡Enviado!';
+                    // Save the original text content (not innerHTML) to avoid
+                    // any risk of re-inserting unexpected markup on restore.
+                    const originalText = btn.textContent;
+                    const originalHTML = btn.innerHTML;
+
+                    // Build success state with safe DOM methods only
+                    btn.textContent = '';
+                    const checkSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    checkSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+                    checkSvg.setAttribute('width', '18');
+                    checkSvg.setAttribute('height', '18');
+                    checkSvg.setAttribute('viewBox', '0 0 24 24');
+                    checkSvg.setAttribute('fill', 'none');
+                    checkSvg.setAttribute('stroke', 'currentColor');
+                    checkSvg.setAttribute('stroke-width', '2');
+                    checkSvg.setAttribute('stroke-linecap', 'round');
+                    checkSvg.setAttribute('stroke-linejoin', 'round');
+                    checkSvg.setAttribute('aria-hidden', 'true');
+                    const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+                    poly.setAttribute('points', '20 6 9 17 4 12');
+                    checkSvg.appendChild(poly);
+                    btn.appendChild(checkSvg);
+                    btn.appendChild(document.createTextNode(' \u00a1Enviado!'));
                     btn.style.background = 'var(--color-success)';
                     btn.disabled = true;
 
                     setTimeout(() => {
-                        btn.innerHTML = original;
+                        // Restore original button content from the saved HTML
+                        // (this was captured from the static template, not from user input)
+                        btn.innerHTML = originalHTML;
                         btn.style.background = '';
                         btn.disabled = false;
-                        lucide && lucide.createIcons();
+                        if (typeof lucide !== 'undefined') lucide.createIcons();
                     }, 4000);
                 }
                 this.reset();
-                console.log('[Masferrer] Form submitted successfully');
+                // Do not log sensitive form data to the console in production
             }
         });
 
@@ -604,7 +598,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // ==========================================
-    // 10. LAZY LOADING IMAGES
+    // 8. LAZY LOADING IMAGES
     // ==========================================
     if ('IntersectionObserver' in window) {
         const imgObserver = new IntersectionObserver((entries, obs) => {
@@ -625,7 +619,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // ==========================================
-    // 11. SCROLL REVEAL (CSS fallback for cards)
+    // 9. SCROLL REVEAL (CSS fallback for cards)
     //     — Only for pages without GSAP loaded
     // ==========================================
     if (typeof gsap === 'undefined' && 'IntersectionObserver' in window) {
